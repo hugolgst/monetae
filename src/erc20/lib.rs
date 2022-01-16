@@ -87,5 +87,11 @@ fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     balances.insert(from, balance_from - value.clone());
     balances.insert(to, balance_of(to) + value.clone());
 
-    return true;
+    true
+}
+
+#[update]
+fn transfer(to: Principal, value: Nat) -> bool {
+    let caller = ic::caller();
+    transfer_from(caller, to, value)
 }

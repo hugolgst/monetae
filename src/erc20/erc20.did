@@ -4,5 +4,6 @@ service : {
     "decimals": () -> (nat8) query;
     "totalSupply": () -> (nat) query;
     "balanceOf": (principal) -> (nat) query;
-    "transferFrom": (principal, principal, nat) -> (bool) query;
+    "transfer": (principal, nat) -> (bool);
+    "transferFrom": (principal, principal, nat) -> (bool);
 }
