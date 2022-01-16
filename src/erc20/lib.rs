@@ -1,3 +1,5 @@
+// ERC-20 standard: https://eips.ethereum.org/EIPS/eip-20
+
 use ic_cdk_macros::*;
 use ic_cdk::export::candid::{types::number::Nat};
 use ic_kit::{ic, Principal};
@@ -16,6 +18,7 @@ fn init() {
     balances.insert(principal_id, total_supply.clone());
 }
 
+#[update(name = "balanceOf")]
 #[query]
 fn balance_of(id: Principal) -> Nat {
     let balances = ic::get::<Balances>();
