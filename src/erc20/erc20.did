@@ -1,4 +1,8 @@
 service : {
-    "balanceOf": (principal) -> (nat) query;
+    "name": () -> (text) query;
+    "symbol": () -> (text) query;
+    "decimals": () -> (nat8) query;
     "totalSupply": () -> (nat) query;
+    "balanceOf": (principal) -> (nat) query;
+    "transferFrom": (principal, principal, nat) -> (bool) query;
 }
