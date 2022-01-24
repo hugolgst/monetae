@@ -9,6 +9,7 @@ pub struct Token {
     pub symbol: String,
     pub decimals: u8,
     pub total_supply: Nat,
+    pub owner: Principal,
 }
 
 impl Default for Token {
