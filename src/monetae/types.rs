@@ -37,3 +37,5 @@ pub struct Record {
     pub fee: Nat,
     pub timestamp: u64,
 }
+
+pub type Ledger = Vec<Record>;

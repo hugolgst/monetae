@@ -4,7 +4,7 @@
   "canisters": {
     "monetae": {
       "type": "rust",
-      "package": "moneate",
+      "package": "monetae",
       "candid": "src/monetae/monetae.did"
     },
     "erc20_assets": {
@@ -13,7 +13,7 @@
         "src/erc20_assets/assets"
       ],
       "dependencies": [
-        "erc20"
+        "monetae"
       ]
     }
   },
