@@ -4,6 +4,7 @@
 
 mod types;
 
+use types::{Token, Balances};
 use ic_cdk_macros::*;
 use ic_cdk::export::candid::{types::number::Nat};
 use ic_kit::{ic, Principal};
@@ -11,39 +12,39 @@ use std::string::String;
 
 #[init]
 fn init(token: Token) {
-    let balances = ic::get_mut::<types::Balances>();
+    let balances = ic::get_mut::<Balances>();
     balances.insert(token.owner.clone(), token.total_supply.clone());
 }
 
 #[query]
 fn name() -> String {
-    let token = ic::get::<types::Token>();
+    let token = ic::get::<Token>();
     token.name.clone()
 }
 
 #[query]
 fn symbol() -> String {
-    let token = ic::get::<types::Token>();
+    let token = ic::get::<Token>();
     token.symbol.clone()
 }
 
 #[query]
 fn decimals() -> u8 {
-    let token = ic::get::<types::Token>();
+    let token = ic::get::<Token>();
     token.decimals.clone()
 }
 
 #[update(name = "totalSupply")]
 #[query]
 fn total_supply() -> Nat {
-    let token = ic::get::<types::Token>();
+    let token = ic::get::<Token>();
     token.total_supply.clone()
 }
 
 #[update(name = "balanceOf")]
 #[query]
 fn balance_of(owner: Principal) -> Nat {
-    let balances = ic::get::<types::Balances>();
+    let balances = ic::get::<Balances>();
     match balances.get(&owner) {
         Some(balance) => balance.clone(),
         None => Nat::from(0),
@@ -58,7 +59,7 @@ fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
         return false;
     }
 
-    let balances = ic::get_mut::<types::Balances>();
+    let balances = ic::get_mut::<Balances>();
     balances.insert(from, balance_from - value.clone());
     balances.insert(to, balance_of(to) + value.clone());
 

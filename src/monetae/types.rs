@@ -1,9 +1,10 @@
 use ic_kit::{Principal};
-use ic_cdk::export::candid::{types::number::Nat};
+use candid::{Nat, Deserialize, CandidType};
 use std::collections::HashMap;
 
 pub type Balances = HashMap<Principal, Nat>;
 
+#[derive(Deserialize, CandidType, Clone, Debug)]
 pub struct Token {
     pub name: String,
     pub symbol: String,
@@ -19,6 +20,7 @@ impl Default for Token {
             symbol: String::from(""),
             decimals: 0u8,
             total_supply: Nat::from(0),
+            owner: Principal::from_text("aaaaa-aa").unwrap(),
         }
     }
 }

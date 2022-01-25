@@ -2,10 +2,10 @@
   "version": 1,
   "dfx": "0.8.4",
   "canisters": {
-    "erc20": {
+    "monetae": {
       "type": "rust",
-      "package": "erc20",
-      "candid": "src/erc20/erc20.did"
+      "package": "moneate",
+      "candid": "src/monetae/monetae.did"
     },
     "erc20_assets": {
       "type": "assets",

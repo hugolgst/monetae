@@ -1,4 +1,10 @@
-service : {
+service : (
+  text,
+	text,
+	nat8,
+	nat,
+	principal
+) -> {
     "name": () -> (text) query;
     "symbol": () -> (text) query;
     "decimals": () -> (nat8) query;
