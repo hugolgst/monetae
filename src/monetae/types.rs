@@ -4,6 +4,8 @@ use std::collections::HashMap;
 
 pub type Balances = HashMap<Principal, Nat>;
 
+// Metadata for the token, this data should in theory
+// be unmutable.
 #[derive(Deserialize, CandidType, Clone, Debug)]
 pub struct Token {
     pub name: String,
