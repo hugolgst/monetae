@@ -1,24 +1,23 @@
 // The ledger will record every operation completed in order
 // to have the history of transactions verifiable by everyone. 
 
-mod types;
 use ic_kit::{ic, Principal};
-use types::{Ledger, Record};
+use candid::{Nat};
+use crate::types::{Ledger, Record, Operation};
 
-fn append_record(
-    caller: Principal,
+pub fn append_record(
+    operation: Operation,
     from: Principal,
     to: Principal,
     amount: Nat,
-    fee: Nat,
 ) {
-    let ledger = ic::get_mut::<Ledger>;
-    ledger.push(Record {
-      caller,
+    let records = ic::get_mut::<Ledger>;
+    records.push(Record {
+      index: records.len(),
+      operation,
       from,
       to,
       amount,
-      fee,
       timestamp: ic::time(),
     })
 }

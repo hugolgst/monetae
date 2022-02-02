@@ -27,14 +27,19 @@ impl Default for Token {
     }
 }
 
+
+#[derive(CandidType, Clone, Copy, Debug, PartialEq)]
+pub enum Operation {
+    TransferFrom,
+}
+
 // Used in the ledger to record every operation
 pub struct Record {
-    pub caller: Principal,
-    // pub operation: Operation
+    pub index: Nat,
+    pub operation: Operation,
     pub from: Principal,
     pub to: Principal,
     pub amount: Nat,
-    pub fee: Nat,
     pub timestamp: u64,
 }
 
