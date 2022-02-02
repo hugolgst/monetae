@@ -5,6 +5,8 @@ use crate::ledger::{append_record};
 use crate::types::{Token, Balances, Operation};
 use crate::{balance_of};
 
+// helper function to process the movement of tokens in the balances as well as
+// emiting the record of transaction.
 fn transfer_helper(op: Operation, from: Principal, to: Principal, value: Nat) {
     let balance_from = balance_of(from);
     let new_balance = balance_from.clone() - value.clone();
