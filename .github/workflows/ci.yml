@@ -9,16 +9,44 @@ on:
   workflow_dispatch:
 
 jobs:
-  format:
+  linter:
+    name: Lint check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Code formatting
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install nightly toolchain with clippy available
         uses: actions-rs/toolchain@v1
         with:
-            toolchain: stable
-            components: rustfmt
-            override: true
-      - uses: mbrobbel/rustfmt-check@master
+          profile: minimal
+          override: true
+          components: clippy
+
+      - name: Run cargo clippy
+        uses: actions-rs/cargo@v1
+        continue-on-error: true  # WARNING: only for this example, remove it!
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          command: clippy
+          args: -- -D warnings
+
+  formatter:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install nightly toolchain with rustfmt available
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: true
+          components: rustfmt
+
+      - name: Run cargo fmt
+        uses: actions-rs/cargo@v1
+        continue-on-error: true  # WARNING: only for this example, remove it!
+        with:
+          command: fmt
+          args: --all -- --check
