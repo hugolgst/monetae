@@ -11,18 +11,24 @@ pub struct Token {
     pub name: String,
     pub symbol: String,
     pub decimals: u8,
+    pub fee: u8,
+    pub fee_to: Principal,
     pub total_supply: Nat,
     pub owner: Principal,
 }
 
 impl Default for Token {
     fn default() -> Self {
+        let principal = Principal::from_text("aaaaa-aa").unwrap();
+
         Self {
             name: String::from(""),
             symbol: String::from(""),
             decimals: 0u8,
+            fee: 0u8,
+            fee_to: principal,
             total_supply: Nat::from(0),
-            owner: Principal::from_text("aaaaa-aa").unwrap(),
+            owner: principal,
         }
     }
 }
