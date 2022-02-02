@@ -1,5 +1,5 @@
 # monetæ
-monetæ, pronunced /mɒnətɑ:ə/, which means currency in latin, is a token standard compatible with Ethereum's RC20[^1] and based on [Internet Computer](https://dfinity.org/howitworks).
+monetæ, pronunced /mɒnətɑ:ə/, which means currency in latin, is a token implementation compatible with Ethereum's RC20[^1] and based on [Internet Computer](https://dfinity.org/howitworks).
 
 Its purpose is not to create yet another standard trying to attract the interest and adoption of the community, but rather to make a canister available for any future DAO[^2] on the IC[^3].
 
