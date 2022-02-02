@@ -11,7 +11,7 @@ pub fn append_record(
     to: Principal,
     amount: Nat,
 ) {
-    let records = ic::get_mut::<Ledger>;
+    let records = ic::get_mut::<Ledger>();
     records.push(Record {
       index: records.len(),
       operation,
