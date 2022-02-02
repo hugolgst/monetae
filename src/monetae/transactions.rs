@@ -5,7 +5,7 @@ use crate::ledger::{append_record};
 use crate::types::{Token, Balances, Operation};
 use crate::{balance_of};
 
-fn transfer_helper(from: Principal, to: Principal, value: Nat) {
+fn transfer_helper(op: Operation, from: Principal, to: Principal, value: Nat) {
     let balance_from = balance_of(from);
     let new_balance = balance_from.clone() - value.clone();
 
@@ -20,7 +20,7 @@ fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     balances.insert(to, balance_of(to) + value.clone());
 
     append_record(
-        Operation::TransferFrom,
+        op,
         from,
         to,
         value,
@@ -37,8 +37,13 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
         return false;
     }
 
-    transfer_helper(from, to, value.clone());
-    transfer_helper(from, token.fee_to.clone(), Nat::from(token.fee.clone()));
+    transfer_helper(Operation::TransferFrom, from, to, value.clone());
+    transfer_helper(
+        Operation::ChargingFee, 
+        from, 
+        token.fee_to.clone(), 
+        Nat::from(token.fee.clone()),
+    );
 
     true
 }
