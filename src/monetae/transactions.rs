@@ -27,9 +27,9 @@ fn transfer_helper(op: Operation, from: Principal, to: Principal, value: Nat) {
     );
 }
 
-#[update(name = "transferFrom")]
 #[update]
-pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
+pub fn transfer(to: Principal, value: Nat) -> bool {
+    let from = ic::caller();
     let token = ic::get::<Token>();
     let balance_from = balance_of(from) - value.clone() - token.fee.clone();
 
