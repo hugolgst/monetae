@@ -21,6 +21,7 @@ jobs:
         with:
           profile: minimal
           override: true
+          toolchain: nightly
           components: clippy
 
       - name: Run cargo clippy
@@ -42,6 +43,7 @@ jobs:
         with:
           profile: minimal
           override: true
+          toolchain: nightly
           components: rustfmt
 
       - name: Run cargo fmt
