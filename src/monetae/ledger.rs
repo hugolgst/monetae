@@ -13,7 +13,7 @@ pub fn append_record(
 ) {
     let records = ic::get_mut::<Ledger>();
     records.push(Record {
-      index: records.len(),
+      index: Nat::from(records.len()),
       operation,
       from,
       to,

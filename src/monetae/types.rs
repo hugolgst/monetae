@@ -34,6 +34,7 @@ pub enum Operation {
 }
 
 // Used in the ledger to record every operation
+#[derive(CandidType, Clone, Debug)]
 pub struct Record {
     pub index: Nat,
     pub operation: Operation,

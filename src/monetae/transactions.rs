@@ -5,9 +5,6 @@ use crate::ledger::{append_record};
 use crate::types::{Balances, Operation};
 use crate::{balance_of};
 
-fn transfer_helper(from: Principal, to: Principal, value: Nat) {
-}
-
 #[update(name = "transferFrom")]
 #[update]
 pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
