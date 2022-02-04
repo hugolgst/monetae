@@ -1,3 +1,13 @@
+type Record = record {
+  index: nat;
+  operation: Operation;
+  from: principal;
+  to: principal;
+  amount: nat;
+  timestamp; nat64;
+}
+type Operation = variant { ChargingFee; TransferFrom };
+
 service : (
   text,
 	text,
