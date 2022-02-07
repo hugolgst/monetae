@@ -25,5 +25,5 @@ service : (
     "transfer": (principal, nat) -> (bool);
 		"approve": (principal, nat) -> (bool);
 		"allowance": (principal, principal) -> (nat) query;
-    "transactions": () -> (vec Record) query;
+    "ledger": () -> (vec Record) query;
 }

@@ -28,6 +28,6 @@ pub fn append_record(
 }
 
 #[query]
-pub fn transactions() -> Ledger {
+pub fn ledger() -> Ledger {
   return ic::get::<Ledger>().to_vec();
 }
