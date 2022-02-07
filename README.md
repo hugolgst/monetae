@@ -13,6 +13,8 @@ dfx start --background
 
 # Deploys your canisters to the replica and generates your candid interface
 dfx deploy
+
+dfx canister install monetae --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat8, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\", 500000000:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\")"
 ```
 
 Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`.

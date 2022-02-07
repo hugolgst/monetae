@@ -5,13 +5,15 @@ type Record = record {
   to: principal;
   amount: nat;
   timestamp; nat64;
-}
+};
 type Operation = variant { ChargingFee; TransferFrom };
 
 service : (
   text,
 	text,
 	nat8,
+	nat8,
+	principal,
 	nat,
 	principal
 ) -> {

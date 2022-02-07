@@ -13,7 +13,24 @@ use ic_kit::{ic, Principal};
 use std::string::String;
 
 #[init]
-fn init(token: Token) {
+fn init(
+    name: String,
+    symbol: String,
+    decimals: u8,
+    fee: u8,
+    fee_to: Principal,
+    total_supply: Nat,
+    owner: Principal
+) {
+    let token = ic::get_mut::<Token>();
+    token.name = name;
+    token.symbol = symbol;
+    token.decimals = decimals;
+    token.fee = fee;
+    token.fee_to = fee_to;
+    token.total_supply = total_supply;
+    token.owner = owner;
+
     let balances = ic::get_mut::<Balances>();
     balances.insert(token.owner.clone(), token.total_supply.clone());
 }
