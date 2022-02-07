@@ -6,7 +6,8 @@ mod types;
 mod ledger;
 mod transactions;
 
-use types::{Token, Balances};
+use types::{Token, Balances, Operation};
+use ledger::{append_record};
 use ic_cdk_macros::*;
 use candid::{Nat};
 use ic_kit::{ic, Principal};
@@ -32,7 +33,14 @@ fn init(
     token.owner = owner;
 
     let balances = ic::get_mut::<Balances>();
+    let from = Principal::from_text("aaaaa-aa").unwrap();
     balances.insert(token.owner.clone(), token.total_supply.clone());
+    append_record(
+        Operation::Genesis,
+        from,
+        token.owner.clone(),
+        token.total_supply.clone(),
+    );
 }
 
 #[query]

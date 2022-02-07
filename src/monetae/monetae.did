@@ -6,7 +6,7 @@ type Record = record {
   amount: nat;
   timestamp; nat64;
 };
-type Operation = variant { ChargingFee; TransferFrom };
+type Operation = variant { Genesis; ChargingFee; TransferFrom };
 
 service : (
   text,
@@ -23,5 +23,5 @@ service : (
     "totalSupply": () -> (nat) query;
     "balanceOf": (principal) -> (nat) query;
     "transfer": (principal, nat) -> (bool);
-    "transferFrom": (principal, principal, nat) -> (bool);
+    "transactions": () -> (vec Record) query;
 }

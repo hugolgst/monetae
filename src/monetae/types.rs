@@ -36,6 +36,7 @@ impl Default for Token {
 
 #[derive(CandidType, Clone, Copy, Debug, PartialEq)]
 pub enum Operation {
+    Genesis,
     ChargingFee,
     TransferFrom,
 }

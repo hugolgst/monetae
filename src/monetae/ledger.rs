@@ -4,6 +4,7 @@
 use ic_kit::{ic, Principal};
 use candid::{Nat};
 use crate::types::{Ledger, Record, Operation};
+use ic_cdk_macros::*;
 
 pub fn append_record(
     operation: Operation,
@@ -20,4 +21,9 @@ pub fn append_record(
       amount,
       timestamp: ic::time(),
     })
+}
+
+#[query]
+pub fn transactions() -> Ledger {
+  return ic::get::<Ledger>().to_vec();
 }
