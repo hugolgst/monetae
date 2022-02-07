@@ -34,6 +34,9 @@ fn init(
 
     let balances = ic::get_mut::<Balances>();
     let from = Principal::from_text("aaaaa-aa").unwrap();
+
+    // Move all supply to the owner address and append what will be called
+    // the genesis record with no fee.
     balances.insert(token.owner.clone(), token.total_supply.clone());
     append_record(
         Operation::Genesis,
