@@ -5,6 +5,8 @@ use crate::types::{Token, Allowances};
 use crate::{balance_of};
 use std::collections::HashMap;
 
+// gives the right to the caller to allow the specified principal to spend
+// the given value out his account using the transferFrom function
 #[update]
 pub fn approve(spender: Principal, value: Nat) -> bool {
     let caller = ic::caller();
