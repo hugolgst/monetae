@@ -3,6 +3,7 @@ use candid::{Nat, Deserialize, CandidType};
 use std::collections::HashMap;
 
 pub type Balances = HashMap<Principal, Nat>;
+pub type Allowances = HashMap<Principal, HashMap<Principal, Nat>>;
 
 // Metadata for the token, this data should in theory
 // be unmutable.

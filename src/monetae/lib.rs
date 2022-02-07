@@ -5,6 +5,7 @@
 mod types;
 mod ledger;
 mod transactions;
+mod allowances;
 
 use types::{Token, Balances, Operation};
 use ledger::{append_record};
