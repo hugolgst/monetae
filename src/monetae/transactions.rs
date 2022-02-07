@@ -2,7 +2,7 @@ use ic_kit::{ic, Principal};
 use ic_cdk_macros::*;
 use candid::{Nat};
 use crate::ledger::{append_record};
-use crate::types::{Token, Balances, Operation};
+use crate::types::{Token, Balances, Operation, Allowances};
 use crate::{balance_of};
 
 // helper function to process the movement of tokens in the balances as well as
@@ -44,5 +44,13 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
 
     transfer_helper(Operation::TransferFrom, from, to, value.clone());
 
+    true
+}
+
+#[update]
+pub fn transferFrom(from: Principal, to: Principal, value: Nat) -> bool {
+    let caller = ic::caller();
+    let allowances = ic::get_mut::<Allowances>();
+    
     true
 }

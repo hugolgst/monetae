@@ -8,7 +8,7 @@ use std::collections::HashMap;
 // gives the right to the caller to allow the specified principal to spend
 // the given value out his account using the transferFrom function
 #[update]
-pub fn approve(spender: Principal, value: Nat) -> bool {
+fn approve(spender: Principal, value: Nat) -> bool {
     let caller = ic::caller();
     let allowances = ic::get_mut::<Allowances>();
     let token = ic::get::<Token>();
@@ -31,4 +31,18 @@ pub fn approve(spender: Principal, value: Nat) -> bool {
     allowances.insert(caller, inner);
 
     true
+}
+
+// Get the current allowance value from the specified owner to the spender
+#[query]
+fn allowance(owner: Principal, spender: Principal) -> Nat {
+    let allowances = ic::get::<Allowances>();
+
+    match allowances.get(&owner) {
+        Some(inner) => match inner.get(&spender) {
+            Some(value) => value.clone(),
+            None => Nat::from(0),
+        },
+        None => Nat::from(0),
+    }
 }
