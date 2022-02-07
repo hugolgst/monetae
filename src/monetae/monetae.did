@@ -6,13 +6,13 @@ type Record = record {
   amount: nat;
   timestamp; nat64;
 };
-type Operation = variant { Genesis; ChargingFee; TransferFrom };
+type Operation = variant { Genesis; TransferFrom };
 
 service : (
   text,
 	text,
 	nat8,
-	nat8,
+	nat,
 	principal,
 	nat,
 	principal

@@ -21,11 +21,14 @@ fn transfer_helper(op: Operation, from: Principal, to: Principal, value: Nat) {
     balances.insert(from, new_balance);
     balances.insert(to, balance_of(to) + value.clone());
 
+    let token = ic::get::<Token>();
     append_record(
         op,
         from,
         to,
         value,
+        token.fee.clone(),
+        token.fee_to.clone(),
     );
 }
 
@@ -40,12 +43,6 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
     }
 
     transfer_helper(Operation::TransferFrom, from, to, value.clone());
-    transfer_helper(
-        Operation::ChargingFee, 
-        from, 
-        token.fee_to.clone(), 
-        Nat::from(token.fee.clone()),
-    );
 
     true
 }

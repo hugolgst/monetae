@@ -11,7 +11,7 @@ pub struct Token {
     pub name: String,
     pub symbol: String,
     pub decimals: u8,
-    pub fee: u8,
+    pub fee: Nat,
     pub fee_to: Principal,
     pub total_supply: Nat,
     pub owner: Principal,
@@ -25,7 +25,7 @@ impl Default for Token {
             name: String::from(""),
             symbol: String::from(""),
             decimals: 0u8,
-            fee: 0u8,
+            fee: Nat::from(0),
             fee_to: principal,
             total_supply: Nat::from(0),
             owner: principal,
@@ -37,7 +37,6 @@ impl Default for Token {
 #[derive(CandidType, Clone, Copy, Debug, PartialEq)]
 pub enum Operation {
     Genesis,
-    ChargingFee,
     TransferFrom,
 }
 
@@ -49,6 +48,8 @@ pub struct Record {
     pub from: Principal,
     pub to: Principal,
     pub amount: Nat,
+    pub fee: Nat,
+    pub fee_to: Principal,
     pub timestamp: u64,
 }
 

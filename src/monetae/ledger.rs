@@ -11,6 +11,8 @@ pub fn append_record(
     from: Principal,
     to: Principal,
     amount: Nat,
+    fee: Nat,
+    fee_to: Principal,
 ) {
     let records = ic::get_mut::<Ledger>();
     records.push(Record {
@@ -19,6 +21,8 @@ pub fn append_record(
       from,
       to,
       amount,
+      fee,
+      fee_to,
       timestamp: ic::time(),
     })
 }

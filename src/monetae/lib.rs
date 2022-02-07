@@ -18,7 +18,7 @@ fn init(
     name: String,
     symbol: String,
     decimals: u8,
-    fee: u8,
+    fee: Nat,
     fee_to: Principal,
     total_supply: Nat,
     owner: Principal
@@ -40,6 +40,8 @@ fn init(
         from,
         token.owner.clone(),
         token.total_supply.clone(),
+        Nat::from(0),
+        from
     );
 }
 
