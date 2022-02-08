@@ -38,7 +38,7 @@ impl Default for Token {
 #[derive(CandidType, Clone, Copy, Debug, PartialEq)]
 pub enum Operation {
     Genesis,
-    TransferFrom,
+    Transfer,
 }
 
 // Used in the ledger to record every operation

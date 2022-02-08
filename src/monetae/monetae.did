@@ -6,7 +6,7 @@ type Record = record {
   amount: nat;
   timestamp; nat64;
 };
-type Operation = variant { Genesis; TransferFrom };
+type Operation = variant { Genesis; Transfer };
 
 service : (
   text,

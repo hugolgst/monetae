@@ -33,9 +33,27 @@ fn approve(spender: Principal, value: Nat) -> bool {
     true
 }
 
+// helper to update the value of an allowance
+pub fn update_allowance_helper(from: Principal, caller: Principal, new_value: Nat) {
+    let allowances = ic::get_mut::<Allowances>();
+    let mut allowance = allowances.get(&from).unwrap().clone();
+
+    if new_value == 0 {
+        allowance.remove(&caller);
+    } else {
+        allowance.insert(caller, new_value);
+    }
+
+    if allowance.len() == 0 {
+        allowances.remove(&from);
+    } else {
+        allowances.insert(from, allowance);
+    }
+}
+
 // Get the current allowance value from the specified owner to the spender
 #[query]
-fn allowance(owner: Principal, spender: Principal) -> Nat {
+pub fn allowance(owner: Principal, spender: Principal) -> Nat {
     let allowances = ic::get::<Allowances>();
 
     match allowances.get(&owner) {
