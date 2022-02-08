@@ -23,6 +23,7 @@ service : (
     "totalSupply": () -> (nat) query;
     "balanceOf": (principal) -> (nat) query;
     "transfer": (principal, nat) -> (bool);
+    "transferFrom": (principal, principal, nat) -> (bool);
 		"approve": (principal, nat) -> (bool);
 		"allowance": (principal, principal) -> (nat) query;
     "ledger": () -> (vec Record) query;

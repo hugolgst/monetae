@@ -9,16 +9,14 @@ use crate::{balance_of};
 // helper function to process the movement of tokens in the balances.
 fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     let balance_from = balance_of(from);
-    let new_balance = balance_from.clone() - value.clone();
 
-    // Value cannot be lower or equal to the fee
-    if new_balance == 0 {
+    if balance_from.clone() < value.clone() {
         return
     }
 
     // Modifies the balances of the Principals
     let balances = ic::get_mut::<Balances>();
-    balances.insert(from, new_balance);
+    balances.insert(from, balance_from.clone() - value.clone());
     balances.insert(to, balance_of(to) + value.clone());
 }
 
@@ -31,9 +29,8 @@ fn charge_fee(from: Principal) {
 pub fn transfer(to: Principal, value: Nat) -> bool {
     let from = ic::caller();
     let token = ic::get::<Token>();
-    let balance_from = balance_of(from) - value.clone() - token.fee.clone();
 
-    if balance_from == 0 {
+    if balance_of(from) < value.clone() + token.fee.clone() {
         return false;
     }
 
@@ -53,6 +50,7 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
     true
 }
 
+#[update(name = "transferFrom")]
 #[update]
 pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     let token = ic::get::<Token>();
