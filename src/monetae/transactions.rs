@@ -20,7 +20,7 @@ fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     balances.insert(to, balance_of(to) + value.clone());
 }
 
-fn charge_fee(from: Principal) {
+pub fn charge_fee(from: Principal) {
     let token = ic::get::<Token>();
     transfer_helper(from, token.fee_to.clone(), token.fee.clone());
 }
@@ -30,6 +30,8 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
     let from = ic::caller();
     let token = ic::get::<Token>();
 
+    // Make sure the sender has enough tokens in his account to finance
+    // the given value plus the fee
     if balance_of(from) < value.clone() + token.fee.clone() {
         return false;
     }
@@ -40,6 +42,7 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
     let token = ic::get::<Token>();
     append_record(
         Operation::Transfer,
+        None,
         from,
         to,
         value,
@@ -64,6 +67,16 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     update_allowance_helper(from, caller, allowance_new);
     transfer_helper(from, to, value.clone());
     charge_fee(from);
+
+    append_record(
+        Operation::TransferFrom,
+        Some(caller),
+        from,
+        to,
+        value,
+        token.fee.clone(),
+        token.fee_to.clone(),
+    );
 
     true
 }

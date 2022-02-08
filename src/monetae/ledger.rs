@@ -8,6 +8,7 @@ use ic_cdk_macros::*;
 
 pub fn append_record(
     operation: Operation,
+    caller: Option<Principal>,
     from: Principal,
     to: Principal,
     amount: Nat,
@@ -17,6 +18,7 @@ pub fn append_record(
     let records = ic::get_mut::<Ledger>();
     records.push(Record {
       index: Nat::from(records.len()),
+      caller,
       operation,
       from,
       to,

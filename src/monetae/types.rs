@@ -39,12 +39,15 @@ impl Default for Token {
 pub enum Operation {
     Genesis,
     Transfer,
+    TransferFrom,
+    Approval,
 }
 
 // Used in the ledger to record every operation
 #[derive(CandidType, Clone, Debug)]
 pub struct Record {
     pub index: Nat,
+    pub caller: Option<Principal>,
     pub operation: Operation,
     pub from: Principal,
     pub to: Principal,

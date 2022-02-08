@@ -1,12 +1,13 @@
 type Record = record {
   index: nat;
+	caller: opt principal;
   operation: Operation;
   from: principal;
   to: principal;
   amount: nat;
   timestamp; nat64;
 };
-type Operation = variant { Genesis; Transfer };
+type Operation = variant { Genesis; Transfer; TransferFrom; Approval };
 
 service : (
   text,

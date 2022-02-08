@@ -1,9 +1,11 @@
 use ic_kit::{ic, Principal};
 use ic_cdk_macros::*;
 use candid::{Nat};
-use crate::types::{Token, Allowances};
-use crate::{balance_of};
 use std::collections::HashMap;
+use crate::ledger::{append_record};
+use crate::types::{Token, Allowances, Operation};
+use crate::transactions::{charge_fee};
+use crate::{balance_of};
 
 // gives the right to the caller to allow the specified principal to spend
 // the given value out his account using the transferFrom function
@@ -13,10 +15,13 @@ fn approve(spender: Principal, value: Nat) -> bool {
     let allowances = ic::get_mut::<Allowances>();
     let token = ic::get::<Token>();
 
+    // Assert that caller can pay for the given value
     if value.clone() + token.fee.clone() > balance_of(caller) {
         return false;
     }
 
+    // Establish if we have to create a new record inside the allowance map
+    // or clone the current one
     let mut inner: HashMap<Principal, Nat>;
     match allowances.get(&caller) {
         Some(temp_inner) => {
@@ -30,6 +35,17 @@ fn approve(spender: Principal, value: Nat) -> bool {
     inner.insert(spender, value.clone());
     allowances.insert(caller, inner);
 
+    charge_fee(caller);
+    append_record(
+        Operation::Approval,
+        None,
+        caller,
+        spender,
+        value,
+        token.fee.clone(),
+        token.fee_to.clone(),
+    );
+
     true
 }
 
@@ -38,12 +54,14 @@ pub fn update_allowance_helper(from: Principal, caller: Principal, new_value: Na
     let allowances = ic::get_mut::<Allowances>();
     let mut allowance = allowances.get(&from).unwrap().clone();
 
+    // Delete record if balance is now 0
     if new_value == 0 {
         allowance.remove(&caller);
     } else {
         allowance.insert(caller, new_value);
     }
 
+    // Delete record if no internal records exists
     if allowance.len() == 0 {
         allowances.remove(&from);
     } else {

@@ -41,6 +41,7 @@ fn init(
     balances.insert(token.owner.clone(), token.total_supply.clone());
     append_record(
         Operation::Genesis,
+        None,
         from,
         token.owner.clone(),
         token.total_supply.clone(),
