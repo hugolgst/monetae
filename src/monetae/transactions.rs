@@ -20,6 +20,8 @@ fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     balances.insert(to, balance_of(to) + value.clone());
 }
 
+// helper to charge the default fee given in the init metadata to the
+// specified principal
 pub fn charge_fee(from: Principal) {
     let token = ic::get::<Token>();
     transfer_helper(from, token.fee_to.clone(), token.fee.clone());

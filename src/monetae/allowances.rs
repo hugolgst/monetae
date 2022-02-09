@@ -34,8 +34,8 @@ fn approve(spender: Principal, value: Nat) -> bool {
 
     inner.insert(spender, value.clone());
     allowances.insert(caller, inner);
-
     charge_fee(caller);
+
     append_record(
         Operation::Approval,
         None,
