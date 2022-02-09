@@ -3,6 +3,11 @@ monetæ, pronunced /mɒnətɑ:ə/, which means currency in latin, is a token imp
 
 Its purpose is not to create yet another standard trying to attract the interest and adoption of the community, but rather to make a canister available for any future DAO[^2] on the IC[^3].
 
+## Features
+
+monetæ is compliant with ERC20, which means that basic transfers as well as approvals/allowances are available. All operations are recorded on what is called the ledger, retrievable with the ledger function.
+Due to IC's reverse gas[^4], the canister needs to be powered with the cycles in advance.
+
 ## Running the project locally
 
 If you want to test your project locally, you can use the following commands:
@@ -22,3 +27,4 @@ Once the job completes, your application will be available at `http://localhost:
 [^1]: ERC20 standard, short for Ethereum Request for Comments 20, is the most popular token standard for smart contracts. https://ethereum.org/en/developers/docs/standards/tokens/erc-20/
 [^2]: Decentralized Autonomous Organization
 [^3]: Internet Computer. https://dfinity.org/howitworks
+[^4]: Internet Computer's reverse gas system. https://icp.guide/explaining-the-internet-computer-to-a-5-year-old/#What_is_the_Reverse-Gas_Model
