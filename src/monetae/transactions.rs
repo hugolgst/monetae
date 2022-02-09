@@ -67,8 +67,8 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     }
 
     update_allowance_helper(from, caller, allowance_new);
-    transfer_helper(from, to, value.clone());
-    charge_fee(from);
+    let balances = ic::get_mut::<Balances>();
+    balances.insert(to, value.clone());
 
     append_record(
         Operation::TransferFrom,
