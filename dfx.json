@@ -6,15 +6,6 @@
       "type": "rust",
       "package": "monetae",
       "candid": "src/monetae/monetae.did"
-    },
-    "erc20_assets": {
-      "type": "assets",
-      "source": [
-        "src/erc20_assets/assets"
-      ],
-      "dependencies": [
-        "monetae"
-      ]
     }
   },
   "defaults": {
