@@ -15,7 +15,7 @@ use ic_kit::{ic, Principal};
 use std::string::String;
 
 #[init]
-fn init(
+pub fn init(
     name: String,
     symbol: String,
     decimals: u8,
@@ -51,26 +51,26 @@ fn init(
 }
 
 #[query]
-fn name() -> String {
+pub fn name() -> String {
     let token = ic::get::<Token>();
     token.name.clone()
 }
 
 #[query]
-fn symbol() -> String {
+pub fn symbol() -> String {
     let token = ic::get::<Token>();
     token.symbol.clone()
 }
 
 #[query]
-fn decimals() -> u8 {
+pub fn decimals() -> u8 {
     let token = ic::get::<Token>();
     token.decimals.clone()
 }
 
 #[update(name = "totalSupply")]
 #[query]
-fn total_supply() -> Nat {
+pub fn total_supply() -> Nat {
     let token = ic::get::<Token>();
     token.total_supply.clone()
 }
