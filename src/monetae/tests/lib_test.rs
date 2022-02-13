@@ -1,3 +1,8 @@
+// For readability purposes, tests are grouped in suites and ran separately
+// in CI. Each file represents a test suite. 
+// This file represents the Library tests suite, test functions should start
+// with `lib_`.
+
 mod common;
 
 use monetae::{name, decimals, symbol, total_supply, balance_of};
