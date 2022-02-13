@@ -54,10 +54,23 @@ jobs:
           command: fmt
           args: --all -- --check
           
+  provide-tests-list:
+    runs-on: ubuntu-latest
+    needs: checkout-sources
+    steps:
+      - 
+        id: set-matrix
+        run: echo "::set-output name=matrix::$(list-tests.sh)"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+          
   tests-lib:
     name: Library tests
     runs-on: ubuntu-latest
-    needs: checkout-sources
+    needs: [checkout-sources, provide-tests-list]
+    strategy:
+      matrix:
+        test: ${{ fromJson(needs.provide-tests-list.outputs.matrix) }}
     steps:
       - name: Install nightly toolchain with rustfmt available
         uses: actions-rs/toolchain@v1
@@ -71,5 +84,5 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: lib     
+          args: ${{ matrix.test }}
   
