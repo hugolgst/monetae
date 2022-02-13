@@ -5,10 +5,10 @@ use monetae::transactions::{transfer};
 use monetae::types::{Operation};
 use common::{initialize, assert_record};
 use candid::{Nat};
-use ic_kit::{mock_principals::{alice, bob, john}, MockContext};
+use ic_kit::{mock_principals::{alice, bob}};
 
 #[test]
-fn initialization() {
+fn lib_initialization() {
     initialize();
 
     assert_eq!(name(), "Monetae", "name returned the wrong result.");
@@ -19,7 +19,7 @@ fn initialization() {
 }
 
 #[test]
-fn genesis_record_initialization() {
+fn lib_genesis_rec_initialization() {
     initialize();
 
     assert_record(
@@ -31,7 +31,7 @@ fn genesis_record_initialization() {
 }
 
 #[test]
-fn caller_transaction() {
+fn lib_caller_transaction() {
     initialize();
 
     let transfer_status = transfer(bob(), Nat::from(10));
