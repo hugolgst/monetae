@@ -78,7 +78,7 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
         value,
         token.fee.clone(),
         token.fee_to.clone(),
-    );
+        );
 
     true
 }

@@ -2,9 +2,9 @@
 // 
 // Principal ID: "kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe"
 
-mod types;
-mod ledger;
-mod transactions;
+pub mod types;
+pub mod ledger;
+pub mod transactions;
 mod allowances;
 
 use types::{Token, Balances, Operation};
