@@ -1,4 +1,4 @@
-name: CI
+name: Checks
 
 on:
   push:
@@ -9,18 +9,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  checkout-sources:
-    name: Checkout sources
+  linter:
+    name: Lint check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-
-  linter:
-    name: Lint check
-    runs-on: ubuntu-latest
-    needs: checkout-sources
-    steps:
       - name: Install nightly toolchain with clippy available
         uses: actions-rs/toolchain@v1
         with:
@@ -38,8 +32,9 @@ jobs:
   formatter:
     name: Format check
     runs-on: ubuntu-latest
-    needs: checkout-sources
     steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
       - name: Install nightly toolchain with rustfmt available
         uses: actions-rs/toolchain@v1
         with:
@@ -53,24 +48,3 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-          
-  tests:
-    name: "Test: ${{ matrix.test }}"
-    runs-on: ubuntu-latest
-    needs: [checkout-sources]
-    strategy:
-      matrix:
-        test: [lib_caller_transaction, lib_genesis_rec_initialization, lib_initialization]
-    steps:
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          override: true
-          toolchain: nightly
-      - name: Run cargo tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: ${{ matrix.test }}
-  
