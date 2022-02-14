@@ -65,7 +65,7 @@ jobs:
         uses: actions-rs/cargo@v1
       -
         id: set-matrix
-        run: echo "::set-output name=matrix::$(cargo test -- --list | awk '/: test/{print substr($1, 1, length($1)-1)}' | grep lib | jq  --raw-input .  | jq --slurp .)"
+        run: echo "::set-output name=matrix::$(sh "$GITHUB_WORKSPACE/list-tests.sh" lib)"
 
     # here, we save the result of this 1st phase to the "outputs"
     outputs:
