@@ -71,7 +71,7 @@ jobs:
         uses: sergeysova/jq-action@v2
       - name: Get list of tests
         id: set-matrix
-        run: echo '::set-output name=matrix::$(sh "$GITHUB_WORKSPACE/list-tests.sh")'
+        run: echo '::set-output name=matrix::$(cat "$GITHUB_WORKSPACE/src/tests/tests.txt")'
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
           
