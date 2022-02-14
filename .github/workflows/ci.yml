@@ -54,43 +54,14 @@ jobs:
           command: fmt
           args: --all -- --check
           
-  provide-tests-list:
-    name: Provide tests array
-    runs-on: ubuntu-latest
-    needs: checkout-sources
-    steps:
-      - name: Install nightly toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          override: true
-          toolchain: nightly
-      - name: Install cargo
-        uses: actions-rs/cargo@v1
-      - name: Install jq
-        uses: sergeysova/jq-action@v2
-      - name: Get list of tests
-        id: set-matrix
-        run: echo '::set-output name=matrix::$(cat "$GITHUB_WORKSPACE/src/tests/tests.txt")'
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-          
   tests-lib:
     name: Library tests
     runs-on: ubuntu-latest
-    needs: [checkout-sources, provide-tests-list]
+    needs: [checkout-sources]
     strategy:
       matrix:
-        test: ${{ fromJson(needs.provide-tests-list.outputs.matrix) }}
+        test: [lib_caller_transaction, lib_genesis_rec_initialization, lib_initialization]
     steps:
-      - name: Install nightly toolchain with rustfmt available
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          override: true
-          toolchain: nightly
-          components: rustfmt
-
       - name: Run cargo tests
         uses: actions-rs/cargo@v1
         with:
