@@ -70,7 +70,7 @@ jobs:
         uses: sergeysova/jq-action@v2
       - 
         id: set-matrix
-        run: echo "::set-output name=matrix::$(sh ./list-tests.sh)"
+        run: echo '::set-output name=matrix::$(sh "$GITHUB_WORKSPACE/list-tests.sh")'
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
           
