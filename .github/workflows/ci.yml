@@ -55,6 +55,7 @@ jobs:
           args: --all -- --check
           
   provide-tests-list:
+    name: Provide tests array
     runs-on: ubuntu-latest
     needs: checkout-sources
     steps:
