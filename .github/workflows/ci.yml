@@ -1,4 +1,4 @@
-name: Checks
+name: CI
 
 on:
   push:
@@ -48,3 +48,24 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
+          
+  lib-tests:
+    name: "Library test: ${{ matrix.test }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: [lib_caller_transaction, lib_genesis_rec_initialization, lib_initialization]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Install nightly toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: true
+          toolchain: nightly
+      - name: Run cargo tests
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: ${{ matrix.test }}
