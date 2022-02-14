@@ -68,7 +68,7 @@ jobs:
         uses: actions-rs/cargo@v1
       - name: Install jq
         uses: sergeysova/jq-action@v2
-      - 
+      - name: Get list of tests
         id: set-matrix
         run: echo '::set-output name=matrix::$(sh "$GITHUB_WORKSPACE/list-tests.sh")'
     outputs:
