@@ -68,8 +68,18 @@ jobs:
       - name: Generate matrix
         id: generate-matrix
         run: |
-          TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq --slurp .)"
+          TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq -c --slurp .)"
           echo "::set-output name=tests::$TESTS"
+          
+  debug-tests-list:
+    name: Debug tests list
+    runs-on: ubuntu-latest
+    needs: provide-tests-list
+    steps:
+      - name: Print list
+        run: | 
+          tests='${{ needs.provide-tests-list.outputs.tests }}'
+          echo $tests
           
   lib-tests:
     name: "Library test: ${{ matrix.test }}"
