@@ -2,8 +2,9 @@ mod common;
 
 use candid::Nat;
 use common::{assert_record, initialize};
-use ic_kit::mock_principals::{alice, bob};
-use monetae::transactions::transfer;
+use ic_kit::mock_principals::{alice, bob, john};
+use monetae::allowances::{allowance, approve};
+use monetae::transactions::{transfer, transfer_from};
 use monetae::types::Operation;
 use monetae::{balance_of, decimals, name, symbol, total_supply};
 
@@ -53,4 +54,39 @@ fn caller_transaction() {
     );
 
     assert_record(Operation::Transfer, bob(), Nat::from(10), Nat::from(1));
+}
+
+#[test]
+fn approval() {
+    let ctx = initialize();
+
+    let approval_status = approve(bob(), Nat::from(10));
+
+    assert_eq!(approval_status, true, "approval status not ok.");
+    assert_eq!(
+        balance_of(alice()),
+        Nat::from(4989),
+        "alice funds were not moved."
+    );
+    assert_eq!(
+        allowance(alice(), bob()),
+        Nat::from(10),
+        "allowance value not right."
+    );
+    assert_record(Operation::Approval, bob(), Nat::from(10), Nat::from(1));
+
+    ctx.update_caller(bob());
+    let transfer_status = transfer_from(alice(), john(), Nat::from(5));
+
+    assert_eq!(transfer_status, true, "transfer_from status not ok.");
+    assert_eq!(
+        balance_of(john()),
+        Nat::from(5),
+        "funds from approval were not moved."
+    );
+    assert_eq!(
+        allowance(alice(), bob()),
+        Nat::from(4),
+        "allowance funds were not updated correctly."
+    );
 }

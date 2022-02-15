@@ -1,7 +1,7 @@
 use crate::balance_of;
 use crate::ledger::append_record;
 use crate::transactions::charge_fee;
-use crate::types::{Allowances, Balances, Operation, Token};
+use crate::types::{Allowances, Operation, Token};
 use candid::Nat;
 use ic_cdk_macros::*;
 use ic_kit::{ic, Principal};
@@ -12,6 +12,7 @@ use std::collections::HashMap;
 #[update]
 pub fn approve(spender: Principal, value: Nat) -> bool {
     let caller = ic::caller();
+    let allowances = ic::get_mut::<Allowances>();
     let token = ic::get::<Token>();
 
     // Assert that caller can pay for the given value
@@ -19,12 +20,19 @@ pub fn approve(spender: Principal, value: Nat) -> bool {
         return false;
     }
 
-    // Remove value from caller's balance
+    // Establish if we have to create a new record inside the allowance map
+    // or clone the current one
+    let mut inner: HashMap<Principal, Nat> = match allowances.get(&caller) {
+        Some(temp_inner) => temp_inner.clone(),
+        None => HashMap::new(),
+    };
+
     let balances = ic::get_mut::<Balances>();
     let new_balance = balance_of(caller) - value.clone();
     balances.insert(caller, new_balance);
 
-    update_allowance_helper(caller, spender, value.clone());
+    inner.insert(spender, value.clone());
+    allowances.insert(caller, inner);
     charge_fee(caller);
 
     append_record(
@@ -43,10 +51,7 @@ pub fn approve(spender: Principal, value: Nat) -> bool {
 // helper to update the value of an allowance
 pub fn update_allowance_helper(from: Principal, caller: Principal, new_value: Nat) {
     let allowances = ic::get_mut::<Allowances>();
-    let mut allowance: HashMap<Principal, Nat> = match allowances.get(&from) {
-        Some(temp_inner) => temp_inner.clone(),
-        None => HashMap::new(),
-    };
+    let mut allowance = allowances.get(&from).unwrap().clone();
 
     // Delete record if balance is now 0
     if new_value == 0 {

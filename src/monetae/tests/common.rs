@@ -1,24 +1,26 @@
 use candid::{Nat, Principal};
 use ic_kit::{
-    mock_principals::{alice, john},
+    mock_principals::{alice, xtc},
     MockContext,
 };
 use monetae::init;
 use monetae::ledger::ledger;
 use monetae::types::Operation;
 
-pub fn initialize() {
-    MockContext::new().with_caller(alice()).inject();
+pub fn initialize() -> &'static mut MockContext {
+    let ctx = MockContext::new().with_caller(alice()).inject();
 
     init(
         String::from("Monetae"),
         String::from("MAE"),
         2u8,
         Nat::from(1),
-        john(),
+        xtc(),
         Nat::from(5000),
         alice(),
     );
+
+    ctx
 }
 
 pub fn assert_record(op: Operation, to: Principal, amount: Nat, fee: Nat) {

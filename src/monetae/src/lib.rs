@@ -2,7 +2,7 @@
 //
 // Principal ID: "kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe"
 
-mod allowances;
+pub mod allowances;
 pub mod ledger;
 pub mod transactions;
 pub mod types;

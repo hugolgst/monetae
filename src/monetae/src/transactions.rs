@@ -60,14 +60,16 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
 pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     let token = ic::get::<Token>();
     let caller = ic::caller();
-    let allowance_new = allowance(from, caller) - value.clone() - token.fee.clone();
 
-    #[allow(clippy::cmp_owned)]
-    if allowance_new < Nat::from(0) {
+    if allowance(from, caller) < value.clone() + token.fee.clone() {
         return false;
     }
 
-    update_allowance_helper(from, caller, allowance_new);
+    update_allowance_helper(
+        from,
+        caller,
+        allowance(from, caller) - value.clone() - token.fee.clone(),
+    );
     let balances = ic::get_mut::<Balances>();
     balances.insert(to, value.clone());
 
