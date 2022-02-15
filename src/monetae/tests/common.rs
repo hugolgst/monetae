@@ -3,7 +3,7 @@ use ic_kit::{
     mock_principals::{alice, xtc},
     MockContext,
 };
-use monetae::init;
+use monetae::{init, balance_of};
 use monetae::ledger::ledger;
 use monetae::types::Operation;
 
@@ -21,6 +21,10 @@ pub fn initialize() -> &'static mut MockContext {
     );
 
     ctx
+}
+
+pub fn assert_fee_received() {
+    assert_eq!(balance_of(xtc()), Nat::from(1), "fee was not given.");
 }
 
 pub fn assert_record(op: Operation, to: Principal, amount: Nat, fee: Nat) {

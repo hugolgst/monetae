@@ -1,7 +1,7 @@
 mod common;
 
 use candid::Nat;
-use common::{assert_record, initialize};
+use common::{assert_record, assert_fee_received, initialize};
 use ic_kit::mock_principals::{alice, bob, john};
 use monetae::allowances::{allowance, approve};
 use monetae::transactions::{transfer, transfer_from};
@@ -52,6 +52,7 @@ fn caller_transaction() {
         Nat::from(10),
         "funds weren't moved to bob."
     );
+    assert_fee_received();
 
     assert_record(Operation::Transfer, bob(), Nat::from(10), Nat::from(1));
 }
@@ -74,6 +75,7 @@ fn approval() {
         "allowance value not right."
     );
     assert_record(Operation::Approval, bob(), Nat::from(10), Nat::from(1));
+    assert_fee_received();
 
     ctx.update_caller(bob());
     let transfer_status = transfer_from(alice(), john(), Nat::from(5));
