@@ -68,7 +68,7 @@ jobs:
       - name: Generate matrix
         id: generate-matrix
         run: |
-          TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq --slurp .)"
+          TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq -c --slurp .)"
           echo "::set-output name=tests::$TESTS"
           
   check-tests-list:
