@@ -1,8 +1,3 @@
-// For readability purposes, tests are grouped in suites and ran separately
-// in CI. Each file represents a test suite.
-// This file represents the Library tests suite, test functions should start
-// with `lib_`.
-
 mod common;
 
 use candid::Nat;
@@ -13,7 +8,7 @@ use monetae::types::Operation;
 use monetae::{balance_of, decimals, name, symbol, total_supply};
 
 #[test]
-fn lib_initialization() {
+fn initialization() {
     initialize();
 
     assert_eq!(name(), "Monetae", "name returned the wrong result.");
@@ -32,14 +27,14 @@ fn lib_initialization() {
 }
 
 #[test]
-fn lib_genesis_rec_initialization() {
+fn genesis_rec_initialization() {
     initialize();
 
     assert_record(Operation::Genesis, alice(), Nat::from(5000), Nat::from(0))
 }
 
 #[test]
-fn lib_caller_transaction() {
+fn caller_transaction() {
     initialize();
 
     let transfer_status = transfer(bob(), Nat::from(10));
