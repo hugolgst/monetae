@@ -10,21 +10,21 @@ use ic_kit::{ic, Principal};
 fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     let balance_from = balance_of(from);
 
-    if balance_from.clone() < value.clone() {
+    if balance_from < value {
         return;
     }
 
     // Modifies the balances of the Principals
     let balances = ic::get_mut::<Balances>();
-    balances.insert(from, balance_from.clone() - value.clone());
-    balances.insert(to, balance_of(to) + value.clone());
+    balances.insert(from, balance_from - value.clone());
+    balances.insert(to, balance_of(to) + value);
 }
 
 // helper to charge the default fee given in the init metadata to the
 // specified principal
 pub fn charge_fee(from: Principal) {
     let token = ic::get::<Token>();
-    transfer_helper(from, token.fee_to.clone(), token.fee.clone());
+    transfer_helper(from, token.fee_to, token.fee.clone());
 }
 
 #[update]
@@ -49,7 +49,7 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
         to,
         value,
         token.fee.clone(),
-        token.fee_to.clone(),
+        token.fee_to,
     );
 
     true
@@ -62,6 +62,7 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     let caller = ic::caller();
     let allowance_new = allowance(from, caller) - value.clone() - token.fee.clone();
 
+    #[allow(clippy::cmp_owned)]
     if allowance_new < Nat::from(0) {
         return false;
     }
@@ -77,7 +78,7 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
         to,
         value,
         token.fee.clone(),
-        token.fee_to.clone(),
+        token.fee_to,
     );
 
     true

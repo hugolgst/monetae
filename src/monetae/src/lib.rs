@@ -38,12 +38,12 @@ pub fn init(
 
     // Move all supply to the owner address and append what will be called
     // the genesis record with no fee.
-    balances.insert(token.owner.clone(), token.total_supply.clone());
+    balances.insert(token.owner, token.total_supply.clone());
     append_record(
         Operation::Genesis,
         None,
         from,
-        token.owner.clone(),
+        token.owner,
         token.total_supply.clone(),
         Nat::from(0),
         from,
@@ -65,7 +65,7 @@ pub fn symbol() -> String {
 #[query]
 pub fn decimals() -> u8 {
     let token = ic::get::<Token>();
-    token.decimals.clone()
+    token.decimals
 }
 
 #[update(name = "totalSupply")]

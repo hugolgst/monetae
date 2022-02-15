@@ -22,15 +22,10 @@ fn approve(spender: Principal, value: Nat) -> bool {
 
     // Establish if we have to create a new record inside the allowance map
     // or clone the current one
-    let mut inner: HashMap<Principal, Nat>;
-    match allowances.get(&caller) {
-        Some(temp_inner) => {
-            inner = temp_inner.clone();
-        }
-        None => {
-            inner = HashMap::new();
-        }
-    }
+    let mut inner: HashMap<Principal, Nat> = match allowances.get(&caller) {
+        Some(temp_inner) => temp_inner.clone(),
+        None => HashMap::new(),
+    };
 
     inner.insert(spender, value.clone());
     allowances.insert(caller, inner);
@@ -43,7 +38,7 @@ fn approve(spender: Principal, value: Nat) -> bool {
         spender,
         value,
         token.fee.clone(),
-        token.fee_to.clone(),
+        token.fee_to,
     );
 
     true
@@ -62,7 +57,7 @@ pub fn update_allowance_helper(from: Principal, caller: Principal, new_value: Na
     }
 
     // Delete record if no internal records exists
-    if allowance.len() == 0 {
+    if allowance.is_empty() {
         allowances.remove(&from);
     } else {
         allowances.insert(from, allowance);

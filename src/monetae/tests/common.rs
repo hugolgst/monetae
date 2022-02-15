@@ -23,7 +23,7 @@ pub fn initialize() {
 
 pub fn assert_record(op: Operation, to: Principal, amount: Nat, fee: Nat) {
     // Asserting the genesis record is present in the ledger
-    match ledger().last().clone() {
+    match ledger().last() {
         Some(genesis_rec) => {
             assert_eq!(genesis_rec.operation, op, "record is not of right type.");
             assert_eq!(
