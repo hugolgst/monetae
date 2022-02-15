@@ -52,6 +52,8 @@ jobs:
   provide-tests-list:
     name: Provide tests list
     runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.generate-matrix.outputs.tests }}
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -63,13 +65,11 @@ jobs:
           toolchain: nightly
       - name: Run cargo fmt
         uses: actions-rs/cargo@v1
-      -
-        id: set-matrix
-        run: echo "::set-output name=matrix::$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq --slurp .)"
-
-    # here, we save the result of this 1st phase to the "outputs"
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      - name: Generate matrix
+        id: generate-matrix
+        run: |
+          TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq --slurp .)"
+          echo "::set-output name=tests::$TESTS"
           
   lib-tests:
     name: "Library test: ${{ matrix.test }}"
@@ -77,7 +77,7 @@ jobs:
     needs: provide-tests-list
     strategy:
       matrix:
-        test: ${{ fromJson(needs.provide-tests-list.outputs.matrix) }}
+        test: ${{ fromJson(needs.provide-tests-list.outputs.tests) }}
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
