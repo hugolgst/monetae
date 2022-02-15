@@ -1,18 +1,18 @@
 // ERC-20 standard: https://eips.ethereum.org/EIPS/eip-20
-// 
+//
 // Principal ID: "kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe"
 
-pub mod types;
+mod allowances;
 pub mod ledger;
 pub mod transactions;
-mod allowances;
+pub mod types;
 
-use types::{Token, Balances, Operation};
-use ledger::{append_record};
+use candid::Nat;
 use ic_cdk_macros::*;
-use candid::{Nat};
 use ic_kit::{ic, Principal};
+use ledger::append_record;
 use std::string::String;
+use types::{Balances, Operation, Token};
 
 #[init]
 pub fn init(
@@ -22,7 +22,7 @@ pub fn init(
     fee: Nat,
     fee_to: Principal,
     total_supply: Nat,
-    owner: Principal
+    owner: Principal,
 ) {
     let token = ic::get_mut::<Token>();
     token.name = name;
@@ -46,7 +46,7 @@ pub fn init(
         token.owner.clone(),
         token.total_supply.clone(),
         Nat::from(0),
-        from
+        from,
     );
 }
 

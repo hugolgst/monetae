@@ -1,11 +1,11 @@
-use ic_kit::{ic, Principal};
+use crate::balance_of;
+use crate::ledger::append_record;
+use crate::transactions::charge_fee;
+use crate::types::{Allowances, Operation, Token};
+use candid::Nat;
 use ic_cdk_macros::*;
-use candid::{Nat};
+use ic_kit::{ic, Principal};
 use std::collections::HashMap;
-use crate::ledger::{append_record};
-use crate::types::{Token, Allowances, Operation};
-use crate::transactions::{charge_fee};
-use crate::{balance_of};
 
 // gives the right to the caller to allow the specified principal to spend
 // the given value out his account using the transferFrom function

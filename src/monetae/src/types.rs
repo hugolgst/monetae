@@ -1,5 +1,5 @@
-use ic_kit::{Principal};
-use candid::{Nat, Deserialize, CandidType};
+use candid::{CandidType, Deserialize, Nat};
+use ic_kit::Principal;
 use std::collections::HashMap;
 
 pub type Balances = HashMap<Principal, Nat>;
@@ -33,7 +33,6 @@ impl Default for Token {
         }
     }
 }
-
 
 #[derive(CandidType, Clone, Copy, Debug, PartialEq)]
 pub enum Operation {

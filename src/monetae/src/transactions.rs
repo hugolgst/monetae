@@ -1,17 +1,17 @@
-use ic_kit::{ic, Principal};
-use ic_cdk_macros::*;
-use candid::{Nat};
-use crate::ledger::{append_record};
-use crate::types::{Token, Balances, Operation};
 use crate::allowances::{allowance, update_allowance_helper};
-use crate::{balance_of};
+use crate::balance_of;
+use crate::ledger::append_record;
+use crate::types::{Balances, Operation, Token};
+use candid::Nat;
+use ic_cdk_macros::*;
+use ic_kit::{ic, Principal};
 
 // helper function to process the movement of tokens in the balances.
 fn transfer_helper(from: Principal, to: Principal, value: Nat) {
     let balance_from = balance_of(from);
 
     if balance_from.clone() < value.clone() {
-        return
+        return;
     }
 
     // Modifies the balances of the Principals
@@ -78,7 +78,7 @@ pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
         value,
         token.fee.clone(),
         token.fee_to.clone(),
-        );
+    );
 
     true
 }
