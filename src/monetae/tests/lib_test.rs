@@ -25,17 +25,12 @@ fn initialization() {
         Nat::from(5000),
         "balance_of returned the wrong result. genesis record may have not happened."
     );
-}
-
-#[test]
-fn genesis_rec_initialization() {
-    initialize();
 
     assert_record(Operation::Genesis, alice(), Nat::from(5000), Nat::from(0))
 }
 
 #[test]
-fn caller_transaction() {
+fn transaction() {
     initialize();
 
     let transfer_status = transfer(bob(), Nat::from(10));
@@ -58,7 +53,7 @@ fn caller_transaction() {
 }
 
 #[test]
-fn approval() {
+fn allowances() {
     let ctx = initialize();
 
     let approval_status = approve(bob(), Nat::from(10));
@@ -91,4 +86,5 @@ fn approval() {
         Nat::from(4),
         "allowance funds were not updated correctly."
     );
+    assert_record(Operation::TransferFrom, john(), Nat::from(5), Nat::from(1));
 }
