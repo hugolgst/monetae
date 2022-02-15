@@ -71,12 +71,12 @@ jobs:
           TESTS="$(sh "$GITHUB_WORKSPACE/list-tests.sh" | grep lib | jq  --raw-input .  | jq -c --slurp .)"
           echo "::set-output name=tests::$TESTS"
           
-  check-tests-list:
-    name: Check provided tests list
+  debug-tests-list:
+    name: Debug tests list
     runs-on: ubuntu-latest
     needs: provide-tests-list
     steps:
-      - name: Check list
+      - name: Print list
         run: | 
           tests='${{ needs.provide-tests-list.outputs.tests }}'
           echo $tests
