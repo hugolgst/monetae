@@ -1,7 +1,7 @@
 mod common;
 
 use candid::Nat;
-use common::{assert_record, assert_fee_received, initialize};
+use common::{assert_fee_received, assert_record, initialize};
 use ic_kit::mock_principals::{alice, bob, john};
 use monetae::allowances::{allowance, approve};
 use monetae::transactions::{transfer, transfer_from};

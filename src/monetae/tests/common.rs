@@ -3,9 +3,9 @@ use ic_kit::{
     mock_principals::{alice, xtc},
     MockContext,
 };
-use monetae::{init, balance_of};
 use monetae::ledger::ledger;
 use monetae::types::Operation;
+use monetae::{balance_of, init};
 
 pub fn initialize() -> &'static mut MockContext {
     let ctx = MockContext::new().with_caller(alice()).inject();
