@@ -1,12 +1,20 @@
 # monetæ
-monetæ, pronunced /mɒnətɑ:ə/, which means currency in latin, is a token implementation compatible with Ethereum's RC20[^1] and based on [Internet Computer](https://dfinity.org/howitworks).
-
+monetæ, pronounced /mɒnətɑ:ə/, which means currency in Latin, is a token implementation compatible with Ethereum's RC20[^1] and based on [Internet Computer](https://dfinity.org/howitworks).
 Its purpose is not to create yet another standard trying to attract the interest and adoption of the community, but rather to make a canister available for any future DAO[^2] on the IC[^3].
 
 ## Features
+monetæ is compliant with ERC20, which means that basic transfers, as well as approvals/allowances, are available. 
 
-monetæ is compliant with ERC20, which means that basic transfers as well as approvals/allowances are available. All operations are recorded on what is called the ledger, retrievable with the ledger function.
-Due to IC's reverse gas[^4], the canister needs to be powered with the cycles in advance.
+Due to IC's reverse gas[^4], the canister needs to be powered with the cycles in advance. That is why the accumulated fees taken from each update operation such as transfer or approve are redistributed to the people powering the canister with cycles.
+
+An ICO module is also available within the monetæ canister, accepting transactions in ICP. The ICO will last until the ICP goal has been reached.
+
+Concerning the governance module, it consists of publishing proposals subject to a certain fee on which people can vote. Proposals must be polar questions, it is considered accepted if more than 50% of the voting weight accepted it.
+Each wallet is assigned a voting weight which is a calculus made over your total number of tokens as well as the time you have been holding it.
+
+monetæ also features its own frontend hosted on the IC. It allows users to use the canister's library from the web to exchange tokens or vote on proposals.
+
+In order to follow up on these features please check the roadmap.
 
 ## Running the project locally
 
