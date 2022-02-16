@@ -16,3 +16,7 @@ target/
 # frontend code
 node_modules/
 dist/
+
+src/monetae-frontend/node_modules/
+src/monetae-frontend/out/
+src/monetae-frontend/.next/
