@@ -5,7 +5,7 @@ type Record = record {
   from: principal;
   to: principal;
   amount: nat;
-  timestamp; nat64;
+  timestamp: nat64;
 };
 type Operation = variant { Genesis; Transfer; TransferFrom; Approval };
 
