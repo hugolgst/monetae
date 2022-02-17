@@ -3,10 +3,10 @@ mod common;
 use candid::Nat;
 use common::{assert_fee_received, assert_record, initialize};
 use ic_kit::mock_principals::{alice, bob, john};
-use monetae::allowances::{allowance, approve};
-use monetae::transactions::{transfer, transfer_from};
-use monetae::types::Operation;
-use monetae::{balance_of, decimals, name, symbol, total_supply};
+use contract::allowances::{allowance, approve};
+use contract::transactions::{transfer, transfer_from};
+use contract::types::Operation;
+use contract::{balance_of, decimals, name, symbol, total_supply};
 
 #[test]
 fn initialization() {

@@ -5,7 +5,7 @@
 		"contract": {
 			"type": "rust",
 			"package": "contract",
-			"candid": "src/contract/monetae.did"
+			"candid": "src/contract/contract.did"
 		},
 		"frontend": {
 			"frontend": {
