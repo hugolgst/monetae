@@ -17,6 +17,6 @@ target/
 node_modules/
 dist/
 
-src/monetae-frontend/node_modules/
-src/monetae-frontend/out/
-src/monetae-frontend/.next/
+src/frontend/node_modules/
+src/frontend/out/
+src/frontend/.next/

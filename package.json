@@ -1,0 +1,15 @@
+{
+  "name": "monetae",
+  "version": "1.0.0",
+  "description": "an internet computer standard to create currencies with a capitalist governance system",
+  "keywords": [
+    "Internet Computer",
+    "Canister",
+    "Internet Identity",
+		"Cryptocurrency",
+		"DAO"
+  ],
+  "scripts": {
+    "build": "cd src/frontend && npm run export"
+  }
+}
