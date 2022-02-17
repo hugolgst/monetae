@@ -1,4 +1,7 @@
-# monetæ
+# monetæ [![CI](https://github.com/hugolgst/monetae/actions/workflows/ci.yml/badge.svg)](https://github.com/hugolgst/monetae/actions/workflows/ci.yml)
+
+<img src="https://user-images.githubusercontent.com/15371828/154586561-b40df7d7-d2d8-4c38-b673-c850c636a563.svg" align="right" alt="Monetae logo" width="270">
+
 monetæ, pronounced /mɒnətɑ:ə/, which means currency in Latin, is a token implementation compatible with Ethereum's RC20[^1] and based on [Internet Computer](https://dfinity.org/howitworks).
 Its purpose is not to create yet another standard trying to attract the interest and adoption of the community, but rather to make a canister available for any future DAO[^2] on the IC[^3].
 
