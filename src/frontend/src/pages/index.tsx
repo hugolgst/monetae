@@ -1,4 +1,3 @@
-import { Heading } from '@chakra-ui/react'
 import NavigationBar from '../components/NavigationBar'
 import React from 'react'
 

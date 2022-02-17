@@ -4,12 +4,10 @@
 	"canisters": {
 		"contract": {
 			"type": "rust",
+			"package": "contract",
 			"candid": "src/contract/monetae.did"
 		},
 		"frontend": {
-			"dependencies": [
-				"contract"
-			],
 			"frontend": {
 				"entrypoint": "src/frontend/out/index.html"
 			},
