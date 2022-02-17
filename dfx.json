@@ -12,10 +12,10 @@
         "monetae"
       ],
       "frontend": {
-        "entrypoint": "out/index.html"
+        "entrypoint": "src/monetae-frontend/out/index.html"
       },
       "source": [
-        "out/"
+        "src/monetae-frontend/out/"
       ],
       "type": "assets",
 			"build": "npm run export"
