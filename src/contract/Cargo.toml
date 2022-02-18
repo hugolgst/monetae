@@ -8,6 +8,7 @@ edition = "2021"
 [lib]
 name = "contract"
 path = "src/lib.rs"
+crate-type = ["rlib", "cdylb"]
 
 [dependencies]
 ic-kit = "0.4.3"
