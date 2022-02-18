@@ -4,6 +4,18 @@ import { Wallet as WalletType, useWallets } from '../../hooks/wallets'
 
 import React from 'react'
 
+const Funds = ({ value, sizes }: {
+	value: number,
+	sizes: [string, string]
+}): JSX.Element => (
+	<Heading
+		fontSize={sizes[0]}
+		ml="auto"
+	>
+		{value < 0 ? "N/A" : value} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
+	</Heading>
+)
+
 const HeroTitle = ({ title, sizes, value }: {
 	title: string,
 	sizes: [string, string],
@@ -34,18 +46,6 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => (
 	</Flex>
 )
 
-const Funds = ({ value, sizes }: {
-	value: number,
-	sizes: [string, string]
-}): JSX.Element => (
-	<Heading
-		fontSize={sizes[0]}
-		ml="auto"
-	>
-		{value} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
-	</Heading>
-)
-
 const Wallets = (): JSX.Element => {
 	const [ wallets, addWallet ] = useWallets()
 
@@ -62,7 +62,7 @@ const Wallets = (): JSX.Element => {
 			alignItems="center"
 		>
 			<Box m="5% 0" w="100%">
-				<HeroTitle title="Account" value={23} sizes={["4xl", "md"]} />
+				<HeroTitle title="Account" value={-1} sizes={["4xl", "md"]} />
 			</Box>
 
 			{ wallets.map(wallet => (
