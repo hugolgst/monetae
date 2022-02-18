@@ -5,11 +5,12 @@ import React from 'react'
 interface ItemProps {
 	name: string
 	active?: boolean
+	left?: boolean
 }
 
-const NavigationItem = ({ name, active }: ItemProps): JSX.Element => (
+const NavigationItem = ({ name, active, left }: ItemProps): JSX.Element => (
 	<Text
-		color={active ? "brand" : "white"}
+		color={active ? "brand.600" : "gray"}
 		fontSize="1.2em"
 		fontWeight="bold"
 		m="20px"
@@ -18,7 +19,7 @@ const NavigationItem = ({ name, active }: ItemProps): JSX.Element => (
 		textAlign="center"
 		borderRadius="50px"
 		cursor="pointer"
-		backgroundColor={active ? "black" : "none"}
+		ml={left ? 'auto' : ''}
 	>{name}</Text>	
 )
 
@@ -26,21 +27,20 @@ const NavigationBar = (): JSX.Element => (
 	<Flex 
 		w="100%"
 		justifyContent="center"
+		h="120px"
 	>
 		<Flex
+			w="80%"
 			direction="row"
 			alignItems="center"
-			borderRadius="50px"
-			backgroundColor="gray.700"
-			m="10px 20px"
-			padding="0 30px"
-			h="70px"
 		>
-			<NavigationItem name="wallet" active />
 			<Image 
 				src="monetae-logo.svg"
+				w="180px"
 			/>
+			<NavigationItem name="wallet" active />
 			<NavigationItem name="governance" />
+			<NavigationItem name="login" left />
 		</Flex>
 	</Flex>
 )
