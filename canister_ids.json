@@ -1,5 +1,8 @@
 {
   "contract": {
     "ic": "cyhoa-7iaaa-aaaak-aah3q-cai"
+  },
+  "frontend": {
+    "ic": "ohyc4-saaaa-aaaam-qacca-cai"
   }
 }

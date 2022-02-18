@@ -47,7 +47,7 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => (
 )
 
 const Wallets = (): JSX.Element => {
-	const [ wallets, addWallet ] = useWallets()
+	const [ wallets ] = useWallets()
 
 	return <Flex
 		w="100%"
