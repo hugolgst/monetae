@@ -33,11 +33,11 @@ dfx deploy frontend
 dfx deploy contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\", 500000000:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\")"
 ```
 
+Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`.
+
 ## Canister IDs
 - Frontend: https://ohyc4-saaaa-aaaam-qacca-cai.ic0.app
 - Contract: cyhoa-7iaaa-aaaak-aah3q-cai
-
-Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`.
 
 [^1]: ERC20 standard, short for Ethereum Request for Comments 20, is the most popular token standard for smart contracts. https://ethereum.org/en/developers/docs/standards/tokens/erc-20/
 [^2]: Decentralized Autonomous Organization
