@@ -20,8 +20,6 @@ const Button: ComponentStyleConfig = {
   },
 }
 
-const fonts = { mono: '\'Menlo\', monospace' }
-
 const theme = extendTheme({
   colors: {
     black: '#16161D',
@@ -30,7 +28,10 @@ const theme = extendTheme({
       600: '#BD9919'
     }
   },
-  fonts,
+  fonts: {
+    heading: 'moranga',
+    body: 'Inter',
+  },
   components: {
     Button
   }
