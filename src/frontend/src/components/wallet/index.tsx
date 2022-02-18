@@ -1,5 +1,6 @@
 import { AddIcon, AtSignIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Text, chakra } from '@chakra-ui/react'
+import { Wallet as WalletType, useWallets } from '../../hooks/wallets'
 
 import React from 'react'
 
@@ -14,7 +15,7 @@ const HeroTitle = ({ title, sizes, value }: {
 	</Flex>
 )
 
-const Wallet = (): JSX.Element => (
+const Wallet = ({ name, address }: WalletType): JSX.Element => (
 	<Flex
 		borderRadius="10px"
 		bgColor="gray.100"
@@ -24,8 +25,8 @@ const Wallet = (): JSX.Element => (
 		p="30px"
 		direction="column"
 	>
-		<HeroTitle title="Main" value={23} sizes={["xl", "xs"]} />
-		<Text><AtSignIcon /> kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe</Text>
+		<HeroTitle title={name} value={23} sizes={["xl", "xs"]} />
+		<Text><AtSignIcon /> {address}</Text>
 		<Flex>
 			<Text color="gray.500">voting weight: 27.4</Text>
 			<Text color="gray.500" ml="auto">click to copy</Text>
@@ -46,6 +47,8 @@ const Funds = ({ value, sizes }: {
 )
 
 const Wallets = (): JSX.Element => {
+	const [ wallets, addWallet ] = useWallets()
+
 	return <Flex
 		w="100%"
 		h="80vh"
@@ -62,7 +65,9 @@ const Wallets = (): JSX.Element => {
 				<HeroTitle title="Account" value={23} sizes={["4xl", "md"]} />
 			</Box>
 
-			<Wallet />
+			{ wallets.map(wallet => (
+				<Wallet {...wallet} />
+			))}
 
 			<Button 
 				w="max-content"
