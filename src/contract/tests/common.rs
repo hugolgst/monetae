@@ -1,11 +1,11 @@
 use candid::{Nat, Principal};
+use contract::ledger::ledger;
+use contract::types::Operation;
+use contract::{balance_of, init};
 use ic_kit::{
     mock_principals::{alice, xtc},
     MockContext,
 };
-use contract::ledger::ledger;
-use contract::types::Operation;
-use contract::{balance_of, init};
 
 pub fn initialize() -> &'static mut MockContext {
     let ctx = MockContext::new().with_caller(alice()).inject();

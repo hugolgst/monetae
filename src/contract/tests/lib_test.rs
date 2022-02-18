@@ -2,11 +2,11 @@ mod common;
 
 use candid::Nat;
 use common::{assert_fee_received, assert_record, initialize};
-use ic_kit::mock_principals::{alice, bob, john};
 use contract::allowances::{allowance, approve};
 use contract::transactions::{transfer, transfer_from};
 use contract::types::Operation;
 use contract::{balance_of, decimals, name, symbol, total_supply};
+use ic_kit::mock_principals::{alice, bob, john};
 
 #[test]
 fn initialization() {
