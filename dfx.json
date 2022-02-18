@@ -3,9 +3,11 @@
 	"dfx": "0.8.4",
 	"canisters": {
 		"contract": {
-			"type": "rust",
+			"type": "custom",
 			"package": "contract",
-			"candid": "src/contract/contract.did"
+			"candid": "src/contract/contract.did",
+			"wasm": "target/wasm32-unknown-unknown/release/contract_opt.wasm",
+			"build": "./build.sh"
 		},
 		"frontend": {
 			"frontend": {
