@@ -1,4 +1,4 @@
-# monetæ [![CI](https://github.com/hugolgst/monetae/actions/workflows/ci.yml/badge.svg)](https://github.com/hugolgst/monetae/actions/workflows/ci.yml)
+# [monetæ](https://ohyc4-saaaa-aaaam-qacca-cai.ic0.app) [![CI](https://github.com/hugolgst/monetae/actions/workflows/ci.yml/badge.svg)](https://github.com/hugolgst/monetae/actions/workflows/ci.yml)
 
 <img src="https://user-images.githubusercontent.com/15371828/154586561-b40df7d7-d2d8-4c38-b673-c850c636a563.svg" align="right" alt="Monetae logo" width="270">
 
@@ -32,6 +32,10 @@ dfx canister create --all
 dfx deploy frontend
 dfx deploy contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\", 500000000:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\")"
 ```
+
+## Canister IDs
+- Frontend: https://ohyc4-saaaa-aaaam-qacca-cai.ic0.app
+- Contract: cyhoa-7iaaa-aaaak-aah3q-cai
 
 Once the job completes, your application will be available at `http://localhost:8000?canisterId={asset_canister_id}`.
 
