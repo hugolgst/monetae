@@ -48,13 +48,13 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => (
 )
 
 const Wallets = (): JSX.Element => {
-  const [ wallets, addWallet ] = useWallets()
+  const [ wallets, setWallets ] = useWallets()
   const [ identity ] = useContext(IdentityContext)
 
   useEffect(() => {
     if (!identity) return
 
-    addWallet([
+    setWallets([
       {
         name: 'Main',
         address: identity.getPrincipal().toString()
