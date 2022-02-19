@@ -1,9 +1,9 @@
-import { AddIcon, AtSignIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Heading, Text, chakra } from '@chakra-ui/react'
-import { Wallet as WalletType, useWallets } from '../../hooks/wallets'
+import { AddIcon } from '@chakra-ui/icons'
+import { Text, Box, Button, Flex, Heading, chakra } from '@chakra-ui/react'
 
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IdentityContext } from '../../App'
+import Wallet, { WalletType } from './Wallet'
 
 const Funds = ({ value, sizes }: {
     value: number,
@@ -17,7 +17,7 @@ const Funds = ({ value, sizes }: {
   </Heading>
 )
 
-const HeroTitle = ({ title, sizes, value }: {
+export const HeroTitle = ({ title, sizes, value }: {
     title: string,
     sizes: [string, string],
     value: number
@@ -28,27 +28,9 @@ const HeroTitle = ({ title, sizes, value }: {
   </Flex>
 )
 
-const Wallet = ({ name, address }: WalletType): JSX.Element => (
-  <Flex
-    borderRadius="10px"
-    bgColor="gray.100"
-    w="100%"
-    h="160px"
-    justifyContent="space-between"
-    p="30px"
-    direction="column"
-  >
-    <HeroTitle title={name} value={-1} sizes={['xl', 'xs']} />
-    <Text><AtSignIcon /> {address}</Text>
-    <Flex>
-      <Text color="gray.500">voting weight: N/A</Text>
-      <Text color="gray.500" ml="auto">click to copy</Text>
-    </Flex>
-  </Flex>
-)
 
 const Wallets = (): JSX.Element => {
-  const [ wallets, setWallets ] = useWallets()
+  const [ wallets, setWallets ] = useState<Array<WalletType>>()
   const [ identity ] = useContext(IdentityContext)
 
   useEffect(() => {
@@ -78,9 +60,9 @@ const Wallets = (): JSX.Element => {
         <HeroTitle title="Account" value={-1} sizes={['4xl', 'md']} />
       </Box>
 
-      { wallets.map((wallet, i) => (
+      { wallets ? wallets.map((wallet, i) => (
         <Wallet key={i} {...wallet} />
-      ))}
+      )) : <Text color="gray.300" fontSize="0.8em">No wallet listed yet.</Text> }
 
       <Button 
         w="max-content"
@@ -88,7 +70,7 @@ const Wallets = (): JSX.Element => {
         size="lg"
         mt="auto"
         disabled
-      >Add wallet</Button>
+      >New transaction</Button>
     </Flex>
   </Flex>
 }
