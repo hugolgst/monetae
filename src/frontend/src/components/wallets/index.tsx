@@ -54,10 +54,12 @@ const Wallets = (): JSX.Element => {
   useEffect(() => {
     if (!identity) return
 
-    addWallet({
-      name: 'Main',
-      address: identity.getPrincipal().toString()
-    })
+    addWallet([
+      {
+        name: 'Main',
+        address: identity.getPrincipal().toString()
+      }
+    ])
   }, [ identity ])
 
   return <Flex

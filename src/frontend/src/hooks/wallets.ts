@@ -5,7 +5,7 @@ export type Wallet = {
 	address: string,
 }
 
-export const useWallets = (): [ Array<Wallet>, (wallet: Wallet) => void ] => {
+export const useWallets = (): [ Array<Wallet>, (wallets: Array<Wallet>) => void ] => {
   const [ wallets, setWallets ] = useState<Array<Wallet>>([])
 
   useEffect(() => {
@@ -17,8 +17,8 @@ export const useWallets = (): [ Array<Wallet>, (wallet: Wallet) => void ] => {
 
   return [
     wallets,
-    (wallet: Wallet) => {
-      setWallets([ ...wallets, wallet ])
+    (wallets: Array<Wallet>) => {
+      setWallets(wallets)
       localStorage.setItem('wallets', JSON.stringify(wallets))
     }
   ]
