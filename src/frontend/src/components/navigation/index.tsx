@@ -1,14 +1,16 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 
 import React from 'react'
+import LoginItem from './Login'
 
 interface ItemProps {
   name: string
   active?: boolean
   left?: boolean
+  onClick?: () => void
 }
 
-const NavigationItem = ({ name, active, left }: ItemProps): JSX.Element => (
+export const NavigationItem = ({ name, active, left, onClick }: ItemProps): JSX.Element => (
   <Text
     color={active ? 'brand.600' : 'gray'}
     fontSize="1.2em"
@@ -20,11 +22,12 @@ const NavigationItem = ({ name, active, left }: ItemProps): JSX.Element => (
     borderRadius="50px"
     cursor="pointer"
     ml={left ? 'auto' : ''}
+    onClick={onClick}
   >{name}</Text>	
 )
 
-const NavigationBar = (): JSX.Element => (
-  <Flex 
+const NavigationBar = (): JSX.Element => {
+  return <Flex 
     w="100%"
     justifyContent="center"
     h="120px"
@@ -40,9 +43,9 @@ const NavigationBar = (): JSX.Element => (
       />
       <NavigationItem name="wallet" active />
       <NavigationItem name="governance" />
-      <NavigationItem name="login" left />
+      <LoginItem />
     </Flex>
   </Flex>
-)
+}
 
 export default NavigationBar

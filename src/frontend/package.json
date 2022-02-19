@@ -6,6 +6,7 @@
     "@chakra-ui/icons": "^1.0.5",
     "@chakra-ui/react": "^1.4.2",
     "@chakra-ui/theme-tools": "1.1.2",
+    "@dfinity/agent": "^0.10.3",
     "@dfinity/auth-client": "^0.10.3",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
