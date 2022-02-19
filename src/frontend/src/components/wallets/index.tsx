@@ -38,10 +38,10 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => (
     p="30px"
     direction="column"
   >
-    <HeroTitle title={name} value={23} sizes={['xl', 'xs']} />
+    <HeroTitle title={name} value={-1} sizes={['xl', 'xs']} />
     <Text><AtSignIcon /> {address}</Text>
     <Flex>
-      <Text color="gray.500">voting weight: 27.4</Text>
+      <Text color="gray.500">voting weight: N/A</Text>
       <Text color="gray.500" ml="auto">click to copy</Text>
     </Flex>
   </Flex>
@@ -87,6 +87,7 @@ const Wallets = (): JSX.Element => {
         leftIcon={<AddIcon />}
         size="lg"
         mt="auto"
+        disabled
       >Add wallet</Button>
     </Flex>
   </Flex>
