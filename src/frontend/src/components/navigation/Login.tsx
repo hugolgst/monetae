@@ -1,22 +1,26 @@
+import { AtSignIcon } from '@chakra-ui/icons'
+import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { NavigationItem } from '.'
 import { useAuthentication } from '../../hooks/authentication'
-import { Text } from '@chakra-ui/react'
 
 const LoginItem = (): JSX.Element => {
   const { logged, identity, login } = useAuthentication()
 
-  return logged ? 
+  const getFirstChars = (text: string): string => {
+    return `${text.slice(0, 8)}...`
+  }
+
+  return logged && identity ? 
     <NavigationItem 
-      name={identity?.getPrincipal().toString() || 'none'} 
+      name={getFirstChars(identity.getPrincipal().toString())} 
       left 
+      icon={AtSignIcon}
     /> 
     : 
-    <NavigationItem 
-      name="login" 
-      left 
-      onClick={login}
-    />
+    <Button ml="auto" onClick={login}>
+      Login
+    </Button>
 }
 
 export default LoginItem

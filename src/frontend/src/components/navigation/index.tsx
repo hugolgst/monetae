@@ -1,16 +1,19 @@
-import { Flex, Image, Text } from '@chakra-ui/react'
+import { ComponentWithAs, Flex, IconProps, Image, Text } from '@chakra-ui/react'
 
 import React from 'react'
 import LoginItem from './Login'
+
+
 
 interface ItemProps {
   name: string
   active?: boolean
   left?: boolean
   onClick?: () => void
+  icon?: ComponentWithAs<'svg', IconProps>
 }
 
-export const NavigationItem = ({ name, active, left, onClick }: ItemProps): JSX.Element => (
+export const NavigationItem = ({ name, active, left, onClick, icon: Icon }: ItemProps): JSX.Element => (
   <Text
     color={active ? 'brand.600' : 'gray'}
     fontSize="1.2em"
@@ -23,7 +26,7 @@ export const NavigationItem = ({ name, active, left, onClick }: ItemProps): JSX.
     cursor="pointer"
     ml={left ? 'auto' : ''}
     onClick={onClick}
-  >{name}</Text>	
+  >{Icon ? <Icon /> : null} {name}</Text>	
 )
 
 const NavigationBar = (): JSX.Element => {
@@ -41,8 +44,8 @@ const NavigationBar = (): JSX.Element => {
         src="images/monetae-logo.svg"
         w="180px"
       />
-      <NavigationItem name="wallet" active />
-      <NavigationItem name="governance" />
+      <NavigationItem name="Wallet" active />
+      <NavigationItem name="Governance" />
       <LoginItem />
     </Flex>
   </Flex>
