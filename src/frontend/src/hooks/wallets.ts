@@ -6,7 +6,7 @@ export type Wallet = {
 }
 
 export const useWallets = (): [ Array<Wallet>, (wallet: Wallet) => void ] => {
-  const [wallets, setWallets] = useState<Array<Wallet>>([])
+  const [ wallets, setWallets ] = useState<Array<Wallet>>([])
 
   useEffect(() => {
     const data = localStorage.getItem('wallets')
@@ -18,10 +18,7 @@ export const useWallets = (): [ Array<Wallet>, (wallet: Wallet) => void ] => {
   return [
     wallets,
     (wallet: Wallet) => {
-      setWallets(wallets => {
-        wallets.push(wallet)
-        return wallets
-      })
+      setWallets([ ...wallets, wallet ])
       localStorage.setItem('wallets', JSON.stringify(wallets))
     }
   ]

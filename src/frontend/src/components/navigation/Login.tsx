@@ -1,11 +1,13 @@
 import { AtSignIcon } from '@chakra-ui/icons'
 import { Button } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavigationItem } from '.'
+import { IdentityContext } from '../../App'
 import { useAuthentication } from '../../hooks/authentication'
 
 const LoginItem = (): JSX.Element => {
-  const { logged, identity, login } = useAuthentication()
+  const { logged, login } = useAuthentication()
+  const [ identity ] = useContext(IdentityContext)
 
   const getFirstChars = (text: string): string => {
     return `${text.slice(0, 8)}...`

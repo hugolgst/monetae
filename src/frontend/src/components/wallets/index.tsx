@@ -2,7 +2,9 @@ import { AddIcon, AtSignIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Text, chakra } from '@chakra-ui/react'
 import { Wallet as WalletType, useWallets } from '../../hooks/wallets'
 
-import React from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
+import { useAuthentication } from '../../hooks/authentication'
+import { IdentityContext } from '../../App'
 
 const Funds = ({ value, sizes }: {
     value: number,
@@ -47,7 +49,17 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => (
 )
 
 const Wallets = (): JSX.Element => {
-  const [ wallets ] = useWallets()
+  const [ wallets, addWallet ] = useWallets()
+  const [ identity ] = useContext(IdentityContext)
+
+  useEffect(() => {
+    if (!identity) return
+
+    addWallet({
+      name: 'Main',
+      address: identity.getPrincipal().toString()
+    })
+  }, [ identity ])
 
   return <Flex
     w="100%"
