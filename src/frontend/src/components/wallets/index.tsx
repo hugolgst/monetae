@@ -2,8 +2,7 @@ import { AddIcon, AtSignIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Text, chakra } from '@chakra-ui/react'
 import { Wallet as WalletType, useWallets } from '../../hooks/wallets'
 
-import React, { useCallback, useContext, useEffect } from 'react'
-import { useAuthentication } from '../../hooks/authentication'
+import React, { useContext, useEffect } from 'react'
 import { IdentityContext } from '../../App'
 
 const Funds = ({ value, sizes }: {
