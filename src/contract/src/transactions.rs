@@ -56,7 +56,6 @@ pub fn transfer(to: Principal, value: Nat) -> bool {
 }
 
 #[update(name = "transferFrom")]
-#[update]
 pub fn transfer_from(from: Principal, to: Principal, value: Nat) -> bool {
     let token = ic::get::<Token>();
     let caller = ic::caller();

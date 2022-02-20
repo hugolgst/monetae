@@ -68,15 +68,13 @@ pub fn decimals() -> u8 {
     token.decimals
 }
 
-#[update(name = "totalSupply")]
-#[query]
+#[query(name = "totalSupply")]
 pub fn total_supply() -> Nat {
     let token = ic::get::<Token>();
     token.total_supply.clone()
 }
 
-#[update(name = "balanceOf")]
-#[query]
+#[query(name = "balanceOf")]
 pub fn balance_of(owner: Principal) -> Nat {
     let balances = ic::get::<Balances>();
     match balances.get(&owner) {

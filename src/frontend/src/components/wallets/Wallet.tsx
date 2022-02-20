@@ -13,11 +13,9 @@ export type WalletType = {
 const Wallet = ({ name, address }: WalletType): JSX.Element => {
   const toast = useToast()
   const [ actor ] = useContext(IdentityContext).actor
-  const [balance, setBalance] = useState<number>(-1)
+  const [ balance, setBalance ] = useState<number>(-1)
 
   useEffect(() => {
-    console.log('getting balance', address)
-
     if (actor && address) {
       actor.balanceOf(address).then((balance: BigInt) => {
         setBalance(Number(balance))
