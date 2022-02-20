@@ -77,7 +77,14 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
         <Button 
           rightIcon={<ArrowForwardIcon />}
           onClick={() => {
-            actor.transfer(Principal.fromText(principal), BigInt(amount)).then(status => {
+            const getFunds = async (val: number) => {
+              return val * 10 ** await actor.decimals()
+            }
+
+            const transfer = async () => {
+              const newAmount = BigInt(await getFunds(amount))
+              const status = actor.transfer(Principal.fromText(principal), newAmount)
+
               if (status) {
                 toast({
                   title: 'Transaction executed successfully.',
@@ -91,7 +98,9 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
                   isClosable: true
                 })
               }
-            })
+            }
+
+            transfer()
           }}
         >Transfer funds</Button>
       </ModalFooter>

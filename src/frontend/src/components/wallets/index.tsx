@@ -9,14 +9,20 @@ import Wallet, { WalletType } from './Wallet'
 const Funds = ({ value, sizes }: {
     value: number,
     sizes: [string, string]
-}): JSX.Element => (
-  <Heading
+}): JSX.Element => {
+  const [ actor ] = useContext(IdentityContext).actor
+
+  const getFunds = async (val: number) => {
+    return val / 10 ** await actor.decimals()
+  }
+
+  return <Heading
     fontSize={sizes[0]}
     ml="auto"
   >
-    {value < 0 ? 'N/A' : value} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
+    {value < 0 ? 'N/A' : getFunds(value)} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
   </Heading>
-)
+}
 
 export const HeroTitle = ({ title, sizes, value }: {
     title: string,
