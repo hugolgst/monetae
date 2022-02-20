@@ -1,19 +1,55 @@
 {
-	"name": "monetae",
-	"version": "1.0.0",
-	"description": "an internet computer standard to create currencies with a capitalist governance system",
-	"keywords": [
-		"Internet Computer",
-		"Canister",
-		"Internet Identity",
-		"Cryptocurrency",
-		"DAO"
-	],
-	"scripts": {
-		"build": "cd src/frontend && npm run build",
-		"prebuild": "npm run copy:types",
-		"dev": "cd src/frontend && npm run start",
-		"prestart": "npm run copy:types",
-		"copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --delete src/declarations"
-	}
+    "name": "monetae",
+    "version": "1.0.0",
+    "description": "an internet computer standard to create currencies with a capitalist governance system",
+    "keywords": [
+        "Internet Computer",
+        "Canister",
+        "Internet Identity",
+        "Cryptocurrency",
+        "DAO"
+    ],
+    "dependencies": {
+        "@chakra-ui/icons": "^1.0.5",
+        "@chakra-ui/react": "^1.4.2",
+        "@chakra-ui/theme-tools": "1.1.2",
+        "@dfinity/agent": "^0.10.3",
+        "@dfinity/auth-client": "^0.10.3",
+        "@dfinity/candid": "^0.10.3",
+        "@dfinity/principal": "^0.10.3",
+        "@emotion/react": "11.1.5",
+        "@emotion/styled": "11.1.5",
+        "framer-motion": "^4.0.3",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-icons": "^3.11.0",
+        "react-scripts": "5.0.0",
+        "typescript": "^4.5.5"
+    },
+    "scripts": {
+        "build": "cd src/frontend && react-scripts build",
+        "prebuild": "npm run copy:types",
+        "eject": "react-scripts eject",
+        "dev": "react-scripts start",
+        "prestart": "npm run copy:types",
+        "copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --delete src/declarations"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ],
+        "devDependencies": {
+            "@types/react-dom": "^17.0.11"
+        }
+    }
 }

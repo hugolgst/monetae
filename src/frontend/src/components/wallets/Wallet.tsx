@@ -1,18 +1,27 @@
 import { AtSignIcon } from '@chakra-ui/icons'
 import { Text, Flex, useToast } from '@chakra-ui/react'
-import React from 'react'
+import { Principal } from '@dfinity/principal'
+import React, { useEffect, useState } from 'react'
 import { HeroTitle } from '.'
+import { contract as smartContract } from '../../../../declarations/contract'
 
 export type WalletType = {
   name: string,
-  address: string
+  address: Principal
 }
 
 const Wallet = ({ name, address }: WalletType): JSX.Element => {
   const toast = useToast()
+  const [balance, setBalance] = useState<number>(-1)
+
+  useEffect(() => {
+    smartContract.balanceOf(address).then((balance: bigint) => {
+      setBalance(Number(balance))
+    })
+  }, [])
 
   const copy = () => {
-    navigator.clipboard.writeText(address)
+    navigator.clipboard.writeText(address.toString())
     toast({
       title: 'Address copied',
       variant: 'subtle',
@@ -29,8 +38,8 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => {
     p="30px"
     direction="column"
   >
-    <HeroTitle title={name} value={-1} sizes={['xl', 'xs']} />
-    <Text><AtSignIcon /> {address}</Text>
+    <HeroTitle title={name} value={balance} sizes={['xl', 'xs']} />
+    <Text><AtSignIcon /> {address.toString()}</Text>
     <Flex>
       <Text color="gray.500">voting weight: N/A</Text>
       <Text 

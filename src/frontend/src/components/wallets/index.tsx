@@ -39,7 +39,7 @@ const Wallets = (): JSX.Element => {
     setWallets([
       {
         name: 'Main',
-        address: identity.getPrincipal().toString()
+        address: identity.getPrincipal()
       }
     ])
   }, [ identity ])
