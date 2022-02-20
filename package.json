@@ -12,7 +12,7 @@
     "scripts": {
         "build": "cd src/frontend && npm run build",
         "prebuild": "npm run copy:types",
-        "dev": "cd src/frontend && npm run start",
+        "dev": "cd src/frontend && npm start",
         "prestart": "npm run copy:types",
         "copy:types": "rsync -avr .dfx/$(echo ${DFX_NETWORK:-'**'})/canisters/** --exclude='assets/' --exclude='idl/' --exclude='*.wasm' --delete src/declarations"
     }

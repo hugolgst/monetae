@@ -7,7 +7,7 @@ import { useAuthentication } from '../../hooks/authentication'
 
 const LoginItem = (): JSX.Element => {
   const { logged, login } = useAuthentication()
-  const [ identity ] = useContext(IdentityContext)
+  const [ identity ] = useContext(IdentityContext).identity
 
   const getFirstChars = (text: string): string => {
     return `${text.slice(0, 8)}...`

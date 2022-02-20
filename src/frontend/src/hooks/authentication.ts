@@ -1,10 +1,13 @@
 import { AuthClient } from '@dfinity/auth-client'
 import { useContext, useState } from 'react'
 import { IdentityContext } from '../App'
+import { canisterId, createActor } from "../../../declarations/contract"
 
 export const useAuthentication = () => {
   const [ logged, setLogged ] = useState(false)
-  const [ , setIdentity ] = useContext(IdentityContext)
+  const context = useContext(IdentityContext)
+  const [ , setIdentity ] = context.identity
+  const [ , setActor ] = context.actor
 
   const login = async () => {
     const authClient = await AuthClient.create()
@@ -16,7 +19,15 @@ export const useAuthentication = () => {
     await authClient.login({
       onSuccess: async () => {
         setLogged(true)
-        if (setIdentity) setIdentity(await authClient.getIdentity())
+
+        const identity = await authClient.getIdentity()
+        setIdentity(identity)
+        
+        setActor(createActor(canisterId as string, {
+          agentOptions: {
+            identity,
+          },
+        }))
       },
       identityProvider:
             process.env.DFX_NETWORK === 'ic'

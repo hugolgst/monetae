@@ -31,7 +31,7 @@ export const HeroTitle = ({ title, sizes, value }: {
 
 const Wallets = (): JSX.Element => {
   const [ wallets, setWallets ] = useState<Array<WalletType>>()
-  const [ identity ] = useContext(IdentityContext)
+  const [ identity ] = useContext(IdentityContext).identity
 
   useEffect(() => {
     if (!identity) return

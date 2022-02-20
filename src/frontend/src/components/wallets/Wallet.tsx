@@ -1,9 +1,9 @@
 import { AtSignIcon } from '@chakra-ui/icons'
 import { Text, Flex, useToast } from '@chakra-ui/react'
 import { Principal } from '@dfinity/principal'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { HeroTitle } from '.'
-import { contract as smartContract } from '../../../../declarations/contract'
+import { IdentityContext } from '../../App'
 
 export type WalletType = {
   name: string,
@@ -12,13 +12,18 @@ export type WalletType = {
 
 const Wallet = ({ name, address }: WalletType): JSX.Element => {
   const toast = useToast()
+  const [ actor ] = useContext(IdentityContext).actor
   const [balance, setBalance] = useState<number>(-1)
 
   useEffect(() => {
-    smartContract.balanceOf(address).then((balance: bigint) => {
-      setBalance(Number(balance))
-    })
-  }, [ address ])
+    console.log('getting balance', address)
+
+    if (actor && address) {
+      actor.balanceOf(address).then((balance: BigInt) => {
+        setBalance(Number(balance))
+      })
+    }
+  }, [])
 
   const copy = () => {
     navigator.clipboard.writeText(address.toString())

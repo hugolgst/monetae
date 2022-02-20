@@ -20,5 +20,3 @@ dist/
 src/frontend/node_modules/
 src/frontend/out/
 src/frontend/.next/
-
-src/declarations
