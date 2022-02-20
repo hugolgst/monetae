@@ -18,7 +18,7 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => {
     smartContract.balanceOf(address).then((balance: bigint) => {
       setBalance(Number(balance))
     })
-  }, [])
+  }, [ address ])
 
   const copy = () => {
     navigator.clipboard.writeText(address.toString())
