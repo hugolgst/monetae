@@ -8,7 +8,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Button,
   Input,
   InputGroup,
@@ -17,17 +16,18 @@ import {
 } from '@chakra-ui/react'
 import { ArrowForwardIcon, AtSignIcon } from '@chakra-ui/icons'
 import { IdentityContext } from '../../App'
+import { Principal } from '@dfinity/principal'
 
 type ModalProps = {
-    disclosure: {
-        isOpen: boolean;
-        onOpen: () => void;
-        onClose: () => void;
-        onToggle: () => void;
-        isControlled: boolean;
-        getButtonProps: (props?: any) => any;
-        getDisclosureProps: (props?: any) => any;
-    }
+  disclosure: {
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+    onToggle: () => void;
+    isControlled: boolean;
+    getButtonProps: (props?: any) => any;
+    getDisclosureProps: (props?: any) => any;
+  }
 }
 
 const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
@@ -77,7 +77,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
         <Button 
           rightIcon={<ArrowForwardIcon />}
           onClick={() => {
-            actor.transfer(principal, BigInt(amount)).then(status => {
+            actor.transfer(Principal.fromText(principal), BigInt(amount)).then(status => {
               if (status) {
                 toast({
                   title: 'Transaction executed successfully.',

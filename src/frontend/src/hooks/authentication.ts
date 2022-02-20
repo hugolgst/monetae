@@ -1,7 +1,7 @@
 import { AuthClient } from '@dfinity/auth-client'
 import { useContext, useState } from 'react'
 import { IdentityContext } from '../App'
-import { canisterId, createActor } from "../../../declarations/contract"
+import { canisterId, createActor } from '../../../declarations/contract'
 
 export const useAuthentication = () => {
   const [ logged, setLogged ] = useState(false)
@@ -23,7 +23,7 @@ export const useAuthentication = () => {
         const identity = await authClient.getIdentity()
         setIdentity(identity)
         
-        setActor(createActor("cyhoa-7iaaa-aaaak-aah3q-cai", {
+        setActor(createActor('cyhoa-7iaaa-aaaak-aah3q-cai', {
           agentOptions: {
             identity,
           },

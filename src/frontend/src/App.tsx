@@ -6,7 +6,7 @@ import NavigationBar from './components/navigation'
 import { theme, Fonts } from './theme'
 import Wallets from './components/wallets'
 import { Identity, ActorSubclass } from '@dfinity/agent'
-import { _SERVICE } from "../../declarations/contract/contract.did"
+import { _SERVICE } from '../../declarations/contract/contract.did'
 
 type Context = {
   identity: [Identity | undefined, Dispatch<SetStateAction<Identity | undefined>>] | undefined,
