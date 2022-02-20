@@ -23,7 +23,7 @@ export const useAuthentication = () => {
         const identity = await authClient.getIdentity()
         setIdentity(identity)
         
-        setActor(createActor(canisterId as string, {
+        setActor(createActor("cyhoa-7iaaa-aaaak-aah3q-cai", {
           agentOptions: {
             identity,
           },
