@@ -14,10 +14,12 @@ import {
   InputGroup,
   InputLeftElement,
   useToast,
+  Flex,
 } from '@chakra-ui/react'
 import { ArrowForwardIcon, AtSignIcon } from '@chakra-ui/icons'
 import { IdentityContext } from '../../App'
 import { Principal } from '@dfinity/principal'
+import useTokenData from '../../hooks/metadata'
 
 type ModalProps = {
   disclosure: {
@@ -33,18 +35,11 @@ type ModalProps = {
 
 const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
   const { isOpen, onClose } = disclosure
-  const [ principal, setPrincipal ] = useState<string>()
-  const [ amount, setAmount ] = useState<string>()
-  const [ actor ] = useContext(IdentityContext).actor
   const toast = useToast()
-  const [ decimals, setDecimals ] = useState<number>()
-  const [ fee, setFee ] = useState<number>()
-
-  useEffect(() => {
-    if (actor) {
-      actor.decimals().then(_decimals => setDecimals(_decimals))
-    }
-  }, [ actor ])
+  const [ actor ] = useContext(IdentityContext).actor
+  const [ principal, setPrincipal ] = useState<string>()
+  const [ amount, setAmount ] = useState<string>('0')
+  const { decimals, fee, symbol } = useTokenData()
 
   return <Modal 
     isOpen={isOpen} 
@@ -75,9 +70,10 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           />
         </InputGroup>
 
-        <Flex>
+        <Flex justifyContent="space-between">
           <Input 
             mt="10px"
+            w="200px"
             placeholder="Amount" 
             value={amount}
             onChange={(e) => {
@@ -85,10 +81,22 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
             }}
           />
 
-          <Text>+</Text>
+          <Text w="max-content"> + {fee / 10 ** decimals} = </Text>
 
-          <Input defaultValue={} />
+          <Input 
+            mt="10px"
+            placeholder="Amount" 
+            w="100px"
+            value={Number(amount) + (fee / 10 ** decimals)}
+            onChange={(e) => {
+              setAmount(`${Number(e.target.value) - (fee / 10 ** decimals)}`)
+            }}
+          />
+
+          <Text>{symbol}</Text>
         </Flex>
+
+        <Text fontSize="0.8em" color="gray.300">The fee applied is a flat rate of {fee / 10 ** decimals} {symbol}.</Text>
       </ModalBody>
 
       <ModalFooter>
