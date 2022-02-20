@@ -18,24 +18,16 @@ const useTokenData = (): Metadata => {
   })
 
   useEffect(() => {
-    if (actor) {
-      actor.decimals().then(decimals => setMetadata({
-        ...metadata,
-        decimals
-      }))
-      actor.fee().then(fee => setMetadata({
-        ...metadata,
-        fee: Number(fee)
-      }))
-      actor.name().then(name => setMetadata({
-        ...metadata,
-        name
-      }))
-      actor.symbol().then(symbol => setMetadata({
-        ...metadata,
-        symbol
-      }))
+    const retreiveData = async () => {
+      setMetadata({
+        decimals: await actor.decimals(),
+        fee: Number(await actor.fee()),
+        name: await actor.name(),
+        symbol: await actor.symbol()
+      })
     }
+
+    if (actor) retreiveData()
   }, [ actor ])
 
   return metadata

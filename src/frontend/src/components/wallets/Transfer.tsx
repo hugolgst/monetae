@@ -70,7 +70,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           />
         </InputGroup>
 
-        <Flex justifyContent="space-between">
+        <Flex alignItems="center" justifyContent="space-between">
           <Input 
             mt="10px"
             w="200px"
@@ -81,22 +81,22 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
             }}
           />
 
-          <Text w="max-content"> + {fee / 10 ** decimals} = </Text>
+          <Text w="max-content"> + {fee / 10.0 ** decimals} = </Text>
 
           <Input 
             mt="10px"
             placeholder="Amount" 
             w="100px"
-            value={Number(amount) + (fee / 10 ** decimals)}
+            value={Number(amount) + (fee / 10.0 ** decimals)}
             onChange={(e) => {
-              setAmount(`${Number(e.target.value) - (fee / 10 ** decimals)}`)
+              setAmount(`${Number(e.target.value) - (fee / 10.0 ** decimals)}`)
             }}
           />
 
           <Text>{symbol}</Text>
         </Flex>
 
-        <Text fontSize="0.8em" color="gray.300">The fee applied is a flat rate of {fee / 10 ** decimals} {symbol}.</Text>
+        <Text fontSize="0.8em" color="gray.300">The fee applied is a flat rate of {fee / 10.0 ** decimals} {symbol}.</Text>
       </ModalBody>
 
       <ModalFooter>
