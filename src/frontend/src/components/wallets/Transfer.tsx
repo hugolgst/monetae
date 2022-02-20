@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import {
+  Text,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -37,9 +38,12 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
   const [ actor ] = useContext(IdentityContext).actor
   const toast = useToast()
   const [ decimals, setDecimals ] = useState<number>()
+  const [ fee, setFee ] = useState<number>()
 
   useEffect(() => {
-    if (actor) actor.decimals().then(_decimals => setDecimals(_decimals))
+    if (actor) {
+      actor.decimals().then(_decimals => setDecimals(_decimals))
+    }
   }, [ actor ])
 
   return <Modal 
@@ -51,7 +55,9 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
 
     <ModalContent>
       <ModalHeader>Transfer</ModalHeader>
+
       <ModalCloseButton />
+
       <ModalBody>
         <InputGroup>
           <InputLeftElement
@@ -59,6 +65,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           >
             <AtSignIcon />
           </InputLeftElement>
+
           <Input 
             placeholder='Principal ID' 
             value={principal}
@@ -68,14 +75,20 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           />
         </InputGroup>
 
-        <Input 
-          mt="10px"
-          placeholder="Amount" 
-          value={amount}
-          onChange={(e) => {
-            setAmount(e.target.value)
-          }}
-        />
+        <Flex>
+          <Input 
+            mt="10px"
+            placeholder="Amount" 
+            value={amount}
+            onChange={(e) => {
+              setAmount(e.target.value)
+            }}
+          />
+
+          <Text>+</Text>
+
+          <Input defaultValue={} />
+        </Flex>
       </ModalBody>
 
       <ModalFooter>

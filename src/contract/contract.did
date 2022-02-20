@@ -19,6 +19,7 @@ service : (
 	principal
 ) -> {
     "name": () -> (text) query;
+    "fee": () -> (nat) query;
     "symbol": () -> (text) query;
     "decimals": () -> (nat8) query;
     "totalSupply": () -> (nat) query;

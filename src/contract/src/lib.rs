@@ -57,6 +57,12 @@ pub fn name() -> String {
 }
 
 #[query]
+pub fn fee() -> Nat {
+    let token = ic::get::<Token>();
+    token.fee.clone()
+}
+
+#[query]
 pub fn symbol() -> String {
     let token = ic::get::<Token>();
     token.symbol.clone()
