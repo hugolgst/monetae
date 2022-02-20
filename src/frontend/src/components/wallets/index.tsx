@@ -1,8 +1,9 @@
 import { AddIcon } from '@chakra-ui/icons'
-import { Text, Box, Button, Flex, Heading, chakra } from '@chakra-ui/react'
+import { Text, Box, Button, Flex, Heading, chakra, useDisclosure } from '@chakra-ui/react'
 
 import React, { useContext, useEffect, useState } from 'react'
 import { IdentityContext } from '../../App'
+import TransferModal from './Transfer'
 import Wallet, { WalletType } from './Wallet'
 
 const Funds = ({ value, sizes }: {
@@ -32,6 +33,8 @@ export const HeroTitle = ({ title, sizes, value }: {
 const Wallets = (): JSX.Element => {
   const [ wallets, setWallets ] = useState<Array<WalletType>>()
   const [ identity ] = useContext(IdentityContext).identity
+  const disclosure = useDisclosure()
+  const { onOpen } = disclosure
 
   useEffect(() => {
     if (!identity) return
@@ -67,11 +70,16 @@ const Wallets = (): JSX.Element => {
       <Button 
         w="max-content"
         leftIcon={<AddIcon />}
-        size="lg"
+        size="lg" 
         mt="auto"
-        disabled
+        onClick={() => {
+          if (identity) onOpen()
+        }}
+        disabled={!identity}
       >New transaction</Button>
     </Flex>
+
+    <TransferModal disclosure={disclosure} />
   </Flex>
 }
 
