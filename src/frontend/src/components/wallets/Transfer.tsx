@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   Modal,
@@ -36,6 +36,11 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
   const [ amount, setAmount ] = useState<number>()
   const [ actor ] = useContext(IdentityContext).actor
   const toast = useToast()
+  const [ decimals, setDecimals ] = useState<number>()
+
+  useEffect(() => {
+    if (actor) actor.decimals().then(_decimals => setDecimals(_decimals))
+  }, [ actor ])
 
   return <Modal 
     isOpen={isOpen} 
@@ -77,13 +82,10 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
         <Button 
           rightIcon={<ArrowForwardIcon />}
           onClick={() => {
-            const getFunds = async (val: number) => {
-              return val * 10 ** await actor.decimals()
-            }
+            if (!decimals) return
 
             const transfer = async () => {
-              const newAmount = BigInt(await getFunds(amount))
-              const status = actor.transfer(Principal.fromText(principal), newAmount)
+              const status = actor.transfer(Principal.fromText(principal), BigInt(amount * 10**decimals))
 
               if (status) {
                 toast({

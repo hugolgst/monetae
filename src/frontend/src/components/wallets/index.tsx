@@ -11,16 +11,17 @@ const Funds = ({ value, sizes }: {
     sizes: [string, string]
 }): JSX.Element => {
   const [ actor ] = useContext(IdentityContext).actor
+  const [ decimals, setDecimals ] = useState<number>()
 
-  const getFunds = async (val: number) => {
-    return val / 10 ** await actor.decimals()
-  }
+  useEffect(() => {
+    if (actor) actor.decimals().then(_decimals => setDecimals(_decimals))
+  }, [ actor ])
 
   return <Heading
     fontSize={sizes[0]}
     ml="auto"
   >
-    {value < 0 ? 'N/A' : getFunds(value)} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
+    {value < 0 || !decimals ? 'N/A' : value / 10 ** decimals} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
   </Heading>
 }
 
