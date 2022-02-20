@@ -33,7 +33,7 @@ type ModalProps = {
 const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
   const { isOpen, onClose } = disclosure
   const [ principal, setPrincipal ] = useState<string>()
-  const [ amount, setAmount ] = useState<number>()
+  const [ amount, setAmount ] = useState<string>()
   const [ actor ] = useContext(IdentityContext).actor
   const toast = useToast()
   const [ decimals, setDecimals ] = useState<number>()
@@ -73,7 +73,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           placeholder="Amount" 
           value={amount}
           onChange={(e) => {
-            setAmount(Number(e.target.value))
+            setAmount(e.target.value)
           }}
         />
       </ModalBody>
@@ -83,9 +83,10 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
           rightIcon={<ArrowForwardIcon />}
           onClick={() => {
             if (!decimals) return
+            if (isNaN(Number(amount))) return
 
             const transfer = async () => {
-              const status = actor.transfer(Principal.fromText(principal), BigInt(amount * 10**decimals))
+              const status = actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
 
               if (status) {
                 toast({
