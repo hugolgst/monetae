@@ -107,7 +107,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
             if (isNaN(Number(amount))) return
 
             const transfer = async () => {
-              const status = actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
+              const status = await actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
 
               if (status) {
                 toast({
