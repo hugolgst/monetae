@@ -52,7 +52,6 @@ jobs:
         with:
           name: monetae
           path: |
-            .dfx
             target
 
   linter:
