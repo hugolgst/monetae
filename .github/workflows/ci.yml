@@ -14,8 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
       - run: sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
       - run: dfx start --background
+      - run: cargo install ic-cdk-optimizer
+      - run: cd "$GITHUB_WORKSPACE/src/frontend" && npm install
       - run: dfx canister create --all
       - run: dfx build
 
