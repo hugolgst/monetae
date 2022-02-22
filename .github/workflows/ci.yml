@@ -90,7 +90,7 @@ jobs:
       - run: cargo test ${{ matrix.test }}
 
   tests-success:
-    name: "Tests succeeded"
+    name: "Tests success"
     runs-on: ubuntu-latest
     needs: integration-tests
     steps:
