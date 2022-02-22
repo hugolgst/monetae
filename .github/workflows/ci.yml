@@ -9,8 +9,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: "Build canisters"
+  build-contract:
+    name: "Build contract"
+    runs-on: ubuntu-latest
+    needs: setup-env
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: monetae
+      - run: dfx canister create contract
+      - run: dfx build
+      
+  build-frontend:
+    name: "Build frontend"
+    runs-on: ubuntu-latest
+    needs: setup-env
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: monetae
+      - run: dfx canister create frontend
+      - run: dfx build
+      
+  setup-env:
+    name: "Setup environment"
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
@@ -22,8 +46,14 @@ jobs:
       - run: dfx start --background
       - run: cargo install ic-cdk-optimizer
       - run: cd "$GITHUB_WORKSPACE/src/frontend" && npm install
-      - run: dfx canister create --all
-      - run: dfx build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: monetae
+          path: |
+            .dfx
+            target
+            node_modules
+            src/frontend/node_modules
 
   linter:
     name: "Linter"
