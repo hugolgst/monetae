@@ -38,6 +38,8 @@ jobs:
   provide-tests:
     name: "Providing tests list"
     runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.generate-matrix.outputs.tests }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
