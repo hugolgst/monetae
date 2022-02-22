@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup-env
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: monetae
@@ -25,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup-env
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
           name: monetae
@@ -47,7 +49,11 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: monetae
-          path: "$GITHUB_WORKSPACE"
+          path: |
+            .dfx
+            target
+            node_modules
+            src/frontend/node_modules
 
   linter:
     name: "Linter"
