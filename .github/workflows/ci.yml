@@ -18,6 +18,7 @@ jobs:
         with:
           toolchain: stable
       - run: sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+      - run: rustup target add wasm32-unknown-unknown
       - run: dfx start --background
       - run: cargo install ic-cdk-optimizer
       - run: cd "$GITHUB_WORKSPACE/src/frontend" && npm install
