@@ -43,6 +43,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      - run: $GITHUB_WORKSPACE/.github/workflows/tools/crate-type.sh rlib
       - id: generate-matrix
         run: |
           TESTS="$(sh "$GITHUB_WORKSPACE/.github/workflows/tools/list-tests.sh")"
