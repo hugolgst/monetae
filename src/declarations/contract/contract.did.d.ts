@@ -17,6 +17,7 @@ export interface _SERVICE {
   'approve' : (arg_0: Principal, arg_1: bigint) => Promise<boolean>,
   'balanceOf' : (arg_0: Principal) => Promise<bigint>,
   'decimals' : () => Promise<number>,
+  'fee' : () => Promise<bigint>,
   'ledger' : () => Promise<Array<Record>>,
   'name' : () => Promise<string>,
   'symbol' : () => Promise<string>,

@@ -23,6 +23,7 @@ export const idlFactory = ({ IDL }) => {
     'approve' : IDL.Func([IDL.Principal, IDL.Nat], [IDL.Bool], []),
     'balanceOf' : IDL.Func([IDL.Principal], [IDL.Nat], ['query']),
     'decimals' : IDL.Func([], [IDL.Nat8], ['query']),
+    'fee' : IDL.Func([], [IDL.Nat], ['query']),
     'ledger' : IDL.Func([], [IDL.Vec(Record)], ['query']),
     'name' : IDL.Func([], [IDL.Text], ['query']),
     'symbol' : IDL.Func([], [IDL.Text], ['query']),
