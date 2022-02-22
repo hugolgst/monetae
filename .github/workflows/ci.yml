@@ -19,7 +19,7 @@ jobs:
       - run: rustup target add wasm32-unknown-unknown
       - run: dfx start --background
       - run: dfx canister create contract
-      - run: dfx build
+      - run: dfx build contract
       
   build-frontend:
     name: "Build frontend"
@@ -30,7 +30,7 @@ jobs:
       - run: cd "$GITHUB_WORKSPACE/src/frontend" && npm install
       - run: dfx start --background
       - run: dfx canister create frontend
-      - run: dfx build
+      - run: dfx build frontend
 
   linter:
     name: "Linter"
