@@ -43,3 +43,6 @@ Once the job completes, your application will be available at `http://localhost:
 [^2]: Decentralized Autonomous Organization
 [^3]: Internet Computer. https://dfinity.org/howitworks
 [^4]: Internet Computer's reverse gas system. https://icp.guide/explaining-the-internet-computer-to-a-5-year-old/#What_is_the_Reverse-Gas_Model
+
+
+<img width="1903" alt="Footer" src="https://user-images.githubusercontent.com/15371828/155176205-a8e7b0ea-2996-4f33-a4fd-d53b7a1c618e.png">
