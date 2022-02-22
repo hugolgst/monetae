@@ -1,0 +1,31 @@
+type Record = record {
+  index: nat;
+	caller: opt principal;
+  operation: Operation;
+  from: principal;
+  to: principal;
+  amount: nat;
+  timestamp: nat64;
+};
+type Operation = variant { Genesis; Transfer; TransferFrom; Approval };
+
+service : (
+  text,
+	text,
+	nat8,
+	nat,
+	principal,
+	nat,
+	principal
+) -> {
+    "name": () -> (text) query;
+    "symbol": () -> (text) query;
+    "decimals": () -> (nat8) query;
+    "totalSupply": () -> (nat) query;
+    "balanceOf": (principal) -> (nat) query;
+    "transfer": (principal, nat) -> (bool);
+    "transferFrom": (principal, principal, nat) -> (bool);
+		"approve": (principal, nat) -> (bool);
+		"allowance": (principal, principal) -> (nat) query;
+    "ledger": () -> (vec Record) query;
+}
