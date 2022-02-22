@@ -15,6 +15,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
       - run: sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+      - run: dfx start --background
       - run: dfx canister create --all
       - run: dfx build
 
