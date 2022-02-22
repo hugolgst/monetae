@@ -74,7 +74,7 @@ const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
 
         <Flex mt="10px" alignItems="center" justifyContent="space-between">
           <Input 
-            w="200px"
+            w="180px"
             placeholder="Amount" 
             value={amount}
             onChange={(e) => {
