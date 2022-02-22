@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import {
   Text,
@@ -28,7 +28,9 @@ type ModalProps = {
     onClose: () => void;
     onToggle: () => void;
     isControlled: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getButtonProps: (props?: any) => any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getDisclosureProps: (props?: any) => any;
   }
 }
