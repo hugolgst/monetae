@@ -88,3 +88,10 @@ jobs:
           toolchain: stable
       - run: $GITHUB_WORKSPACE/.github/workflows/tools/crate-type.sh rlib
       - run: cargo test ${{ matrix.test }}
+
+  tests-success:
+    name: "Tests success"
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+      - run: echo "Done!"
