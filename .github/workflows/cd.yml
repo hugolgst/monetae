@@ -16,7 +16,6 @@ jobs:
         env:
           DEPLOY: true
           INPUT_IDENTITY: ${{ secrets.DFX_IDENTITY }}
-          INPUT_WALLETS: ${{ secrets.DFX_WALLETS }}
       
   deploy-frontend:
     name: "Deploy frontend"

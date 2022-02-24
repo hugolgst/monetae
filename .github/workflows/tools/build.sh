@@ -7,7 +7,6 @@ dfx start --background
 
 echo $INPUT_IDENTITY > ~/.config/dfx/identity/default/identity.pem
 sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
-echo $INPUT_WALLETS > ~/.config/dfx/identity/default/wallets.json
 
 if [ "$1" = "frontend" -o $# -eq 0 ]; then
   cd "$GITHUB_WORKSPACE/src/frontend" && npm install
