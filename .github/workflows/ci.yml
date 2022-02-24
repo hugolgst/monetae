@@ -14,10 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-      - run: cargo install ic-cdk-optimizer
-      - run: rustup target add wasm32-unknown-unknown
-      - run: dfx start --background
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/setup-env.sh" contract
       - run: dfx canister create contract
       - run: dfx build contract
       
@@ -26,9 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-      - run: cd "$GITHUB_WORKSPACE/src/frontend" && npm install
-      - run: dfx start --background
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/setup-env.sh" frontend
       - run: dfx canister create frontend
       - run: dfx build frontend
 
