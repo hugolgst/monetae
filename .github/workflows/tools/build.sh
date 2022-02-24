@@ -8,6 +8,7 @@ dfx start --background
 
 if [ "$1" = "frontend" -o $# -eq 0 ]; then
   cd "$GITHUB_WORKSPACE/src/frontend" && npm install
+  cd "$GITHUB_WORKSPACE"
   dfx canister create frontend
   dfx build frontend
 fi
