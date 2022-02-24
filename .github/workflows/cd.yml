@@ -1,0 +1,26 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy-contract:
+    name: "Deploy contract"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" contract
+        env:
+          DEPLOY: true
+          INPUT_IDENTITY: ${{ secrets.DFX_IDENTITY }}
+          INPUT_WALLETS: ${{ secrets.DFX_WALLETS }}
+      
+  deploy-frontend:
+    name: "Deploy frontend"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" frontend
