@@ -2,6 +2,7 @@ import { AuthClient } from '@dfinity/auth-client'
 import { useContext, useState } from 'react'
 import { IdentityContext } from '../App'
 import { createActor } from '../../../declarations/contract'
+import { contractID } from '..'
 
 export const useAuthentication = () => {
   const [ logged, setLogged ] = useState(false)
@@ -23,17 +24,13 @@ export const useAuthentication = () => {
         const identity = await authClient.getIdentity()
         setIdentity(identity)
         
-        setActor(createActor('cyhoa-7iaaa-aaaak-aah3q-cai', {
+        setActor(createActor(contractID, {
           agentOptions: {
             identity,
           },
         }))
       },
-      identityProvider:
-            process.env.DFX_NETWORK === 'ic'
-              ? 'https://identity.ic0.app/#authorize'
-              : process.env.LOCAL_II_CANISTER,
-      // Maximum authorization expiration is 8 days
+      identityProvider: 'https://identity.ic0.app/#authorize',
       maxTimeToLive: days * hours * nanoseconds,
     })
   }
