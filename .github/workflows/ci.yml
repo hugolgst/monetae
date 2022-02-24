@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/setup-env.sh" contract
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" contract
       
   build-frontend:
     name: "Build frontend"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/setup-env.sh" frontend
+      - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" frontend
 
   linter:
     name: "Linter"
