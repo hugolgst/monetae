@@ -5,6 +5,10 @@ set -e
 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
 dfx start --background
 
+mkdir ~/.config/dfx
+mkdir ~/.config/dfx/identity
+mkdir ~/.config/dfx/identity/default
+
 echo $INPUT_IDENTITY > ~/.config/dfx/identity/default/identity.pem
 sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
 
