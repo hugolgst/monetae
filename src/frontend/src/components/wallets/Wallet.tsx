@@ -1,5 +1,5 @@
 import { AtSignIcon } from '@chakra-ui/icons'
-import { chakra, Heading, Text, Flex, useToast } from '@chakra-ui/react'
+import { Code, chakra, Heading, Text, Flex, useToast } from '@chakra-ui/react'
 import { Principal } from '@dfinity/principal'
 import React, { useContext, useEffect, useState } from 'react'
 import { IdentityContext } from '../../App'
@@ -67,7 +67,10 @@ const Wallet = ({ address }: WalletType): JSX.Element => {
       <chakra.span fontSize="1em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
     </Heading>
 
-    <Text><AtSignIcon /> {address.toString()}</Text>
+    <Flex alignItems="center">
+      <AtSignIcon /> 
+      <Code>{address.toString()}</Code>
+    </Flex>
     <Flex direction={{ base: 'column', md: 'row' }}>
       <Text color="gray.500">voting weight: N/A</Text>
       <Text 
