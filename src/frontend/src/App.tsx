@@ -27,7 +27,7 @@ export const App = () => {
     // Show the loader for a minimum amount of time
     setTimeout(() => {
       setLoadingState(false)
-    }, 1000)
+    }, 2000)
   }, [])
 
   return <ChakraProvider resetCSS theme={theme}>
