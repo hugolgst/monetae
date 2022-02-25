@@ -2,7 +2,7 @@ import React, { useState, createContext, Dispatch, SetStateAction, useEffect } f
 import {
   ChakraProvider,
 } from '@chakra-ui/react'
-import NavigationBar from './components/navigation'
+import { MobileNavigationBar, NavigationBar } from './components/navigation'
 import { theme, Fonts } from './theme'
 import Wallets from './components/wallets'
 import { Identity, ActorSubclass } from '@dfinity/agent'
@@ -38,6 +38,7 @@ export const App = () => {
     }}>
       { isLoading ? <PageLoader /> :
         <>
+          <MobileNavigationBar />
           <NavigationBar />
           <Wallets />
         </> }

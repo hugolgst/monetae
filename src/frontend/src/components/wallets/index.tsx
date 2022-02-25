@@ -61,13 +61,14 @@ const Wallets = (): JSX.Element => {
   >
     <Flex 
       direction="column"
-      w="40%"
+      w={{ base: '70%', md: '40%' }}
+      m={{ base: '5vh 0', md: '0' }}
       h="100%"
       justifyContent="center"
       alignItems="center"
     >
       <Box m="5% 0" w="100%">
-        <HeroTitle title="Account" value={-1} sizes={['4xl', 'md']} />
+        <Heading size="xl">Account</Heading>
       </Box>
 
       { wallets ? wallets.map((wallet, i) => (

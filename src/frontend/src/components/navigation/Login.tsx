@@ -5,7 +5,7 @@ import { NavigationItem } from '.'
 import { IdentityContext } from '../../App'
 import { useAuthentication } from '../../hooks/authentication'
 
-const LoginItem = (): JSX.Element => {
+const LoginItem = ({ mobile }: { mobile?: boolean }): JSX.Element => {
   const { logged, login } = useAuthentication()
   const [ identity ] = useContext(IdentityContext).identity
 
@@ -20,7 +20,7 @@ const LoginItem = (): JSX.Element => {
       icon={AtSignIcon}
     /> 
     : 
-    <Button ml="auto" onClick={login}>
+    <Button ml={mobile ? '' : 'auto'} onClick={login}>
       Login
     </Button>
 }

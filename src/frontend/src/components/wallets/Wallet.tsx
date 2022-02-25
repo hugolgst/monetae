@@ -36,14 +36,15 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => {
     borderRadius="10px"
     bgColor="gray.100"
     w="100%"
-    h="160px"
     justifyContent="space-between"
     p="30px"
     direction="column"
+    flexWrap="wrap"
+    gap="12px"
   >
     <HeroTitle title={name} value={balance} sizes={['xl', 'xs']} />
     <Text><AtSignIcon /> {address.toString()}</Text>
-    <Flex>
+    <Flex direction={{ base: 'column', md: 'row' }}>
       <Text color="gray.500">voting weight: N/A</Text>
       <Text 
         color="gray.500" 

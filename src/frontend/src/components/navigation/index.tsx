@@ -1,9 +1,8 @@
-import { ComponentWithAs, Flex, IconProps, Image, Text } from '@chakra-ui/react'
+import { AtSignIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { Menu, MenuButton, MenuItem, MenuList, ComponentWithAs, Flex, IconProps, Image, Text } from '@chakra-ui/react'
 
 import React from 'react'
 import LoginItem from './Login'
-
-
 
 interface ItemProps {
   name: string
@@ -29,8 +28,53 @@ export const NavigationItem = ({ name, active, left, onClick, icon: Icon }: Item
   >{Icon ? <Icon /> : null} {name}</Text>	
 )
 
-const NavigationBar = (): JSX.Element => {
+export const MobileNavigationBar = (): JSX.Element => (
+  <Flex 
+    justifyContent="center"
+    display={{ base: 'flex', md: 'none' }}
+    w="100%"
+  >
+    <Flex
+      w="80%"
+      m="20px"
+      boxSizing="border-box"
+    >
+      <Image 
+        src="images/monetae-logo.svg"
+        w="140px"
+      />
+
+      <Menu>
+        {({ isOpen }) => (
+          <>
+            <MenuButton 
+              display={{ base: 'block', md: 'none' }}
+              ml="auto"
+            >
+              {isOpen ? <CloseIcon w={4} h={4} /> : <HamburgerIcon w={7} h={7} />}
+            </MenuButton>
+            <MenuList
+              backgroundColor="transparent-bg"
+              style={{
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)'
+              }}
+            >
+              <MenuItem icon={<AtSignIcon />}>Wallet</MenuItem>
+              <MenuItem h="70px">
+                <LoginItem mobile />
+              </MenuItem>
+            </MenuList>
+          </>
+        )}
+      </Menu>
+    </Flex>
+  </Flex>
+)
+
+export const NavigationBar = (): JSX.Element => {
   return <Flex 
+    display={{ base: 'none' , md: 'flex' }}
     w="100%"
     justifyContent="center"
     h="120px"
@@ -44,11 +88,9 @@ const NavigationBar = (): JSX.Element => {
         src="images/monetae-logo.svg"
         w="180px"
       />
+
       <NavigationItem name="Wallet" active />
-      <NavigationItem name="Governance" />
       <LoginItem />
     </Flex>
   </Flex>
 }
-
-export default NavigationBar

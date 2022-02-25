@@ -8,6 +8,7 @@ import { extendTheme } from '@chakra-ui/react'
 const Button: ComponentStyleConfig = {
   baseStyle: {
     fontWeight: 'bold',
+    fontFamily: 'moranga',
     borderRadius: 'base',
   },
   variants: {
@@ -37,35 +38,21 @@ export const Fonts = () => (
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 700;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n7/otf?domain=furrynomad.io&md5=VxKcFqIfFizvN6HQwtFCyw") format('opentype');
+		src: url("/fonts/moranga-medium.otf") format('opentype');
 	} 
 
 	@font-face {
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 900;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n9/otf?domain=furrynomad.io&md5=iPbU4aw6juHX434ASklnog") format('opentype');
+		src: url("/fonts/moranga-black.otf") format('opentype');
 	} 
 
 	@font-face {
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 500;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n5/otf?domain=furrynomad.io&md5=bafPru17fYvjS1H6OvOEjw") format('opentype');
-	} 
-
-	@font-face {
-		font-family: 'moranga';
-		font-style: normal;
-		font-weight: 300;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n3/otf?domain=furrynomad.io&md5=dCNSB6oc560ol80i7DC7tw") format('opentype');
-	} 
-
-	@font-face {
-		font-family: 'moranga';
-		font-style: normal;
-		font-weight: 400;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n4/otf?domain=furrynomad.io&md5=U4wgV7xlodyP3svRkyfmNQ") format('opentype');
+		src: url("/fonts/moranga.otf") format('opentype');
 	} 
       `}
   />
