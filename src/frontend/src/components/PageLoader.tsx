@@ -21,7 +21,7 @@ const PageLoader = (): JSX.Element => (
     >
       <motion.div
         initial={{ scale: 1, x: 0 }}
-        animate={{ scale: 0.8, x: -68 }}
+        animate={{ scale: 0.7, x: -68 }}
         transition={{
           type: 'spring',
           stiffness: 260,
