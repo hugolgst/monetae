@@ -23,7 +23,7 @@ const formatNumber = (val: number): string => {
     result.push(strNum.slice(start, start + 3))
   }
 
-  return `${result.join('\'')}.${decimals}`
+  return `${result.join('\'')}${decimals? '.' + decimals : ''}`
 }
 
 const Wallet = ({ address }: WalletType): JSX.Element => {
