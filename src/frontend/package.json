@@ -19,7 +19,7 @@
         "@emotion/react": "11.1.5",
         "@emotion/styled": "11.1.5",
         "declarations": "../declarations",
-        "framer-motion": "^4.0.3",
+        "framer-motion": "^4.1.17",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-icons": "^3.11.0",

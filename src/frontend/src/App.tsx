@@ -1,4 +1,4 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from 'react'
+import React, { useState, createContext, Dispatch, SetStateAction, useEffect } from 'react'
 import {
   ChakraProvider,
 } from '@chakra-ui/react'
@@ -7,6 +7,7 @@ import { theme, Fonts } from './theme'
 import Wallets from './components/wallets'
 import { Identity, ActorSubclass } from '@dfinity/agent'
 import { _SERVICE } from '../../declarations/contract/contract.did'
+import PageLoader from './components/PageLoader'
 
 type Context = {
   identity: [Identity | undefined, Dispatch<SetStateAction<Identity | undefined>>] | undefined,
@@ -20,6 +21,14 @@ export const IdentityContext = createContext<Context>({
 export const App = () => {
   const identityState = useState<Identity>()
   const actorState = useState<ActorSubclass<_SERVICE>>()
+  const [ isLoading, setLoadingState ] = useState(true)
+
+  useEffect(() => {
+    // Show the loader for a minimum amount of time
+    setTimeout(() => {
+      setLoadingState(false)
+    }, 1000)
+  }, [])
 
   return <ChakraProvider resetCSS theme={theme}>
     <Fonts />
@@ -27,8 +36,11 @@ export const App = () => {
       identity: identityState,
       actor: actorState
     }}>
-      <NavigationBar />
-      <Wallets />
+      { isLoading ? <PageLoader /> :
+        <>
+          <NavigationBar />
+          <Wallets />
+        </> }
     </IdentityContext.Provider>
   </ChakraProvider>
 }
