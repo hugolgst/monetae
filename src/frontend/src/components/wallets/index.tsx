@@ -5,23 +5,19 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IdentityContext } from '../../App'
 import TransferModal from './Transfer'
 import Wallet, { WalletType } from './Wallet'
+import useTokenData from '../../hooks/metadata'
 
 const Funds = ({ value, sizes }: {
     value: number,
     sizes: [string, string]
 }): JSX.Element => {
-  const [ actor ] = useContext(IdentityContext).actor
-  const [ decimals, setDecimals ] = useState<number>()
-
-  useEffect(() => {
-    if (actor) actor.decimals().then(_decimals => setDecimals(_decimals))
-  }, [ actor ])
+  const { decimals, symbol } = useTokenData()
 
   return <Heading
     fontSize={sizes[0]}
     ml="auto"
   >
-    {value < 0 || !decimals ? 'N/A' : value / 10 ** decimals} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
+    {value < 0 || !decimals ? 'N/A' : value / 10 ** decimals} <chakra.span fontSize={sizes[1]} fontWeight="normal">{symbol}</chakra.span>
   </Heading>
 }
 
@@ -48,7 +44,6 @@ const Wallets = (): JSX.Element => {
 
     setWallets([
       {
-        name: 'Main',
         address: identity.getPrincipal()
       }
     ])

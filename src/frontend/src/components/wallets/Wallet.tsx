@@ -1,19 +1,36 @@
 import { AtSignIcon } from '@chakra-ui/icons'
-import { Text, Flex, useToast } from '@chakra-ui/react'
+import { chakra, Heading, Text, Flex, useToast } from '@chakra-ui/react'
 import { Principal } from '@dfinity/principal'
 import React, { useContext, useEffect, useState } from 'react'
-import { HeroTitle } from '.'
 import { IdentityContext } from '../../App'
+import useTokenData from '../../hooks/metadata'
 
 export type WalletType = {
-  name: string,
   address: Principal
 }
 
-const Wallet = ({ name, address }: WalletType): JSX.Element => {
+const formatNumber = (val: number): string => {
+  const [strNum, decimals] = val.toString().split('.')
+  const result = []
+  for (let i = 0; i < Math.ceil(strNum.length / 3); i++) {
+    const surplus = strNum.length % 3
+    if (surplus != 0 && i == 0) {
+      result.push(strNum.slice(0, surplus))
+      continue
+    }
+
+    const start = (i-1) * 3 + surplus
+    result.push(strNum.slice(start, start + 3))
+  }
+
+  return `${result.join('\'')}.${decimals}`
+}
+
+const Wallet = ({ address }: WalletType): JSX.Element => {
   const toast = useToast()
   const [ actor ] = useContext(IdentityContext).actor
   const [ balance, setBalance ] = useState<number>(-1)
+  const { symbol, name, decimals } = useTokenData()
 
   useEffect(() => {
     if (actor && address) {
@@ -42,7 +59,14 @@ const Wallet = ({ name, address }: WalletType): JSX.Element => {
     flexWrap="wrap"
     gap="12px"
   >
-    <HeroTitle title={name} value={balance} sizes={['xl', 'xs']} />
+    <Text
+      textTransform="capitalize"
+      color="gray.500"
+    >{name}</Text>
+    <Heading>
+      <chakra.span fontSize="1em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
+    </Heading>
+
     <Text><AtSignIcon /> {address.toString()}</Text>
     <Flex direction={{ base: 'column', md: 'row' }}>
       <Text color="gray.500">voting weight: N/A</Text>
