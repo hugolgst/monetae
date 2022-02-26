@@ -21,7 +21,7 @@ if [ "$1" = "frontend" -o $# -eq 0 ]; then
   dfx build frontend
 
   if [ "$DEPLOY" = "true" ]; then
-    dfx deploy --network=ic frontend
+    dfx deploy --network=ic --no-wallet frontend
   fi
 fi
 
@@ -32,7 +32,7 @@ if [ "$1" = "contract" -o $# -eq 0 ]; then
   dfx build contract
 
   if [ "$DEPLOY" = "true" ]; then
-    dfx deploy contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\", 500000000:nat, principal \"kp36f-wbon5-rq45k-vo3r3-fjwqq-jxufl-znnnn-5k35g-7xugj-ggthi-mqe\")" --network=ic --no-wallet
+    dfx deploy contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\", 50000000000:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\")" --network=ic --no-wallet
   fi
 
   echo "\nModule hash:"
