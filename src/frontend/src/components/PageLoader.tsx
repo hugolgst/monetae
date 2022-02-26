@@ -21,7 +21,7 @@ const PageLoader = (): JSX.Element => (
     >
       <motion.div
         initial={{ scale: 1, x: 0 }}
-        animate={{ scale: 0.7, x: -68 }}
+        animate={{ scale: 0.5, x: -47 }}
         transition={{
           type: 'spring',
           stiffness: 260,
@@ -49,7 +49,10 @@ const PageLoader = (): JSX.Element => (
           position: 'absolute'
         }}
       >
-        <Image src="images/monetae-logo.svg" />
+        <Image 
+          src="images/monetae-logo.svg"
+          w="250px"
+        />
       </motion.div>
     </Center>
   </>
