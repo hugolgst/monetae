@@ -1,33 +1,8 @@
 import { AtSignIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import { ComponentWithAs, Flex, IconProps, Image, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react'
+import { Flex, Image, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 
 import LoginItem from './Login'
 import React from 'react'
-
-interface ItemProps {
-  name: string
-  active?: boolean
-  left?: boolean
-  onClick?: () => void
-  icon?: ComponentWithAs<'svg', IconProps>
-}
-
-export const NavigationItem = ({ name, active, left, onClick, icon: Icon }: ItemProps): JSX.Element => (
-  <Text
-    color={active ? 'brand.600' : 'gray'}
-    fontSize="1.2em"
-    fontWeight="600"
-    textTransform="uppercase"
-    m="20px"
-    p="10px"
-    w="170px"
-    textAlign="center"
-    borderRadius="50px"
-    cursor="pointer"
-    ml={left ? 'auto' : ''}
-    onClick={onClick}
-  >{Icon ? <Icon /> : null} {name}</Text>	
-)
 
 export const MobileNavigationBar = (): JSX.Element => (
   <Flex 
@@ -90,7 +65,6 @@ export const NavigationBar = (): JSX.Element => {
         w="180px"
       />
 
-      <NavigationItem name="Wallet" active />
       <LoginItem />
     </Flex>
   </Flex>
