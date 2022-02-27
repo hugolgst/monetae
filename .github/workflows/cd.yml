@@ -30,7 +30,7 @@ jobs:
       - id: frontend-url
         run: |
           FRONTEND_URL="https://$(cat "$GITHUB_WORKSPACE/canister_ids.json" | jq -r '.frontend.ic').ic0.app"
-          echo "::set-output name=url::$FRONTEND_URL"
+          echo "::set-output name=url::\"$FRONTEND_URL\""
       - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" frontend
         env:
           DEPLOY: true
