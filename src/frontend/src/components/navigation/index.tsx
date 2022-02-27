@@ -1,5 +1,4 @@
-import { AtSignIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import { Flex, Image, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Flex, Image } from '@chakra-ui/react'
 
 import LoginItem from './Login'
 import React from 'react'
@@ -11,7 +10,7 @@ export const MobileNavigationBar = (): JSX.Element => (
     w="100%"
   >
     <Flex
-      w="80%"
+      w="100%"
       m="20px"
       boxSizing="border-box"
     >
@@ -20,30 +19,7 @@ export const MobileNavigationBar = (): JSX.Element => (
         w="140px"
       />
 
-      <Menu>
-        {({ isOpen }) => (
-          <>
-            <MenuButton 
-              display={{ base: 'block', md: 'none' }}
-              ml="auto"
-            >
-              {isOpen ? <CloseIcon w={4} h={4} /> : <HamburgerIcon w={7} h={7} />}
-            </MenuButton>
-            <MenuList
-              backgroundColor="transparent-bg"
-              style={{
-                backdropFilter: 'blur(4px)',
-                WebkitBackdropFilter: 'blur(4px)'
-              }}
-            >
-              <MenuItem icon={<AtSignIcon />}>Wallet</MenuItem>
-              <MenuItem h="70px">
-                <LoginItem mobile />
-              </MenuItem>
-            </MenuList>
-          </>
-        )}
-      </Menu>
+      <LoginItem />
     </Flex>
   </Flex>
 )

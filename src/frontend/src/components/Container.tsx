@@ -1,6 +1,7 @@
+import { MobileNavigationBar, NavigationBar } from './navigation'
+
 import { Flex } from '@chakra-ui/react'
 import InformationBar from './information'
-import { NavigationBar } from './navigation'
 import React from 'react'
 
 const Container = (): JSX.Element => {
@@ -23,6 +24,7 @@ const Container = (): JSX.Element => {
         w="92%"
       >
         <NavigationBar />
+        <MobileNavigationBar />
 
         test
       </Flex>
