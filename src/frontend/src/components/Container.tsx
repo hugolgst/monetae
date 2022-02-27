@@ -3,6 +3,7 @@ import { MobileNavigationBar, NavigationBar } from './navigation'
 import { Flex } from '@chakra-ui/react'
 import InformationBar from './information'
 import React from 'react'
+import Wallets from './wallets'
 
 const Container = (): JSX.Element => {
   return <Flex 
@@ -14,9 +15,9 @@ const Container = (): JSX.Element => {
     
     <Flex
       w={{ base: '100%', md: '60%' }}
+      h="100vh"
       bgColor="white"
       borderRadius="35px"
-      alignItems="center"
       justifyContent="center"
     >
       <Flex 
@@ -26,7 +27,7 @@ const Container = (): JSX.Element => {
         <NavigationBar />
         <MobileNavigationBar />
 
-        test
+        <Wallets />
       </Flex>
     </Flex>
   </Flex>

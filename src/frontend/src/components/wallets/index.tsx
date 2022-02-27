@@ -1,10 +1,10 @@
-import { AddIcon } from '@chakra-ui/icons'
-import { Text, Box, Button, Flex, Heading, chakra, useDisclosure } from '@chakra-ui/react'
-
+import { Box, Button, Flex, Heading, Text, chakra, useDisclosure } from '@chakra-ui/react'
 import React, { useContext, useEffect, useState } from 'react'
+import Wallet, { WalletType } from './Wallet'
+
+import { AddIcon } from '@chakra-ui/icons'
 import { IdentityContext } from '../../App'
 import TransferModal from './Transfer'
-import Wallet, { WalletType } from './Wallet'
 import useTokenData from '../../hooks/metadata'
 
 const Funds = ({ value, sizes }: {
@@ -51,7 +51,6 @@ const Wallets = (): JSX.Element => {
 
   return <Flex
     w="100%"
-    h="80vh"
     justifyContent="center"
   >
     <Flex 
@@ -69,17 +68,6 @@ const Wallets = (): JSX.Element => {
       { wallets ? wallets.map((wallet, i) => (
         <Wallet key={i} {...wallet} />
       )) : <Text color="gray.300" fontSize="0.8em">No wallet listed yet.</Text> }
-
-      <Button 
-        w="max-content"
-        leftIcon={<AddIcon />}
-        size="lg" 
-        mt="auto"
-        onClick={() => {
-          if (identity) onOpen()
-        }}
-        disabled={!identity}
-      >New transaction</Button>
     </Flex>
 
     <TransferModal disclosure={disclosure} />
