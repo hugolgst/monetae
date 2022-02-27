@@ -1,8 +1,8 @@
 import { AtSignIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
-import { Menu, MenuButton, MenuItem, MenuList, ComponentWithAs, Flex, IconProps, Image, Text } from '@chakra-ui/react'
+import { ComponentWithAs, Flex, IconProps, Image, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react'
 
-import React from 'react'
 import LoginItem from './Login'
+import React from 'react'
 
 interface ItemProps {
   name: string
@@ -16,7 +16,8 @@ export const NavigationItem = ({ name, active, left, onClick, icon: Icon }: Item
   <Text
     color={active ? 'brand.600' : 'gray'}
     fontSize="1.2em"
-    fontWeight="bold"
+    fontWeight="600"
+    textTransform="uppercase"
     m="20px"
     p="10px"
     w="170px"
@@ -80,7 +81,7 @@ export const NavigationBar = (): JSX.Element => {
     h="120px"
   >
     <Flex
-      w="80%"
+      w="100%"
       direction="row"
       alignItems="center"
     >

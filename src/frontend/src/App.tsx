@@ -1,17 +1,18 @@
-import React, { useState, createContext, Dispatch, SetStateAction, useEffect } from 'react'
+import { ActorSubclass, Identity } from '@dfinity/agent'
+import { Fonts, theme } from './theme'
+import React, { Dispatch, SetStateAction, createContext, useEffect, useState } from 'react'
+
 import {
   ChakraProvider,
 } from '@chakra-ui/react'
-import { MobileNavigationBar, NavigationBar } from './components/navigation'
-import { theme, Fonts } from './theme'
-import Wallets from './components/wallets'
-import { Identity, ActorSubclass } from '@dfinity/agent'
-import { _SERVICE } from '../../declarations/contract/contract.did'
+import Container from './components/Container'
 import PageLoader from './components/PageLoader'
+import { _SERVICE } from '../../declarations/contract/contract.did'
 
+type State<T> = [T | undefined, Dispatch<SetStateAction<T | undefined>>]
 type Context = {
-  identity: [Identity | undefined, Dispatch<SetStateAction<Identity | undefined>>] | undefined,
-  actor: [ActorSubclass<_SERVICE> | undefined, Dispatch<SetStateAction<ActorSubclass<_SERVICE> | undefined>>] | undefined
+  identity: State<Identity> | undefined,
+  actor: State<ActorSubclass<_SERVICE>> | undefined
 }
 export const IdentityContext = createContext<Context>({
   identity: undefined,
@@ -36,12 +37,9 @@ export const App = () => {
       identity: identityState,
       actor: actorState
     }}>
-      { isLoading ? <PageLoader /> :
-        <>
-          <MobileNavigationBar />
-          <NavigationBar />
-          <Wallets />
-        </> }
+      { isLoading ? <PageLoader /> : null }
+
+      <Container />
     </IdentityContext.Provider>
   </ChakraProvider>
 }

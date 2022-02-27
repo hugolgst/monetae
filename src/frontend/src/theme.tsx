@@ -1,7 +1,8 @@
-import React from 'react'
 import type { ComponentStyleConfig } from '@chakra-ui/theme'
 import { Global } from '@emotion/react'
+import React from 'react'
 import { extendTheme } from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 // You can also use the more specific type for
 // a single part component: ComponentSingleStyleConfig
@@ -72,5 +73,12 @@ export const theme = extendTheme({
   },
   components: {
     Button
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: mode('#EEEEEE','')(props),
+      }
+    })
   }
 })
