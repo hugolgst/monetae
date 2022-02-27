@@ -23,14 +23,14 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: Mainnet
-      url: "https://${{ fromJson(steps.frontend-id.outputs.id) }}.ic0.app"
+      url: ${{ fromJson(steps.frontend-url.outputs.url) }}
     needs: deploy-contract
     steps:
       - uses: actions/checkout@v2
-      - id: frontend-id
+      - id: frontend-url
         run: |
-          FRONTEND_ID="$(cat "$GITHUB_WORKSPACE/canister_ids.json" | jq -r '.frontend.ic')"
-          echo "::set-output name=id::$FRONTEND_ID"
+          FRONTEND_URL="https://$(cat "$GITHUB_WORKSPACE/canister_ids.json" | jq -r '.frontend.ic').ic0.app"
+          echo "::set-output name=url::$FRONTEND_URL"
       - run: sh "$GITHUB_WORKSPACE/.github/workflows/tools/build.sh" frontend
         env:
           DEPLOY: true
