@@ -1,13 +1,15 @@
-import React from 'react'
 import type { ComponentStyleConfig } from '@chakra-ui/theme'
 import { Global } from '@emotion/react'
+import React from 'react'
 import { extendTheme } from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 // You can also use the more specific type for
 // a single part component: ComponentSingleStyleConfig
 const Button: ComponentStyleConfig = {
   baseStyle: {
     fontWeight: 'bold',
+    fontFamily: 'moranga',
     borderRadius: 'base',
   },
   variants: {
@@ -28,6 +30,19 @@ const Button: ComponentStyleConfig = {
   },
 }
 
+const Input: ComponentStyleConfig = {
+  variants: {
+    solid: {
+      field: {
+        bgColor: '#EEEEEE',
+        border: 'none',
+        borderRadius: '50px',
+        color: '#686868' 
+      }
+    }
+  }
+}
+
 export const Fonts = () => (
   <Global
     styles={`
@@ -37,35 +52,21 @@ export const Fonts = () => (
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 700;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n7/otf?domain=furrynomad.io&md5=VxKcFqIfFizvN6HQwtFCyw") format('opentype');
+		src: url("/fonts/moranga-medium.otf") format('opentype');
 	} 
 
 	@font-face {
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 900;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n9/otf?domain=furrynomad.io&md5=iPbU4aw6juHX434ASklnog") format('opentype');
+		src: url("/fonts/moranga-black.otf") format('opentype');
 	} 
 
 	@font-face {
 		font-family: 'moranga';
 		font-style: normal;
 		font-weight: 500;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n5/otf?domain=furrynomad.io&md5=bafPru17fYvjS1H6OvOEjw") format('opentype');
-	} 
-
-	@font-face {
-		font-family: 'moranga';
-		font-style: normal;
-		font-weight: 300;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n3/otf?domain=furrynomad.io&md5=dCNSB6oc560ol80i7DC7tw") format('opentype');
-	} 
-
-	@font-face {
-		font-family: 'moranga';
-		font-style: normal;
-		font-weight: 400;
-		src: url("https://furrynomad.io/api/fonts/620359926c9aa9001d155abd/n4/otf?domain=furrynomad.io&md5=U4wgV7xlodyP3svRkyfmNQ") format('opentype');
+		src: url("/fonts/moranga.otf") format('opentype');
 	} 
       `}
   />
@@ -81,9 +82,17 @@ export const theme = extendTheme({
   },
   fonts: {
     heading: 'moranga',
-    body: 'Inter',
+    body: 'Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
   },
   components: {
-    Button
+    Button,
+    Input
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: mode('#EEEEEE','')(props),
+      }
+    })
   }
 })

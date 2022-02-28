@@ -1,138 +1,108 @@
-import React, { useContext, useState } from 'react'
-
+import { ArrowForwardIcon, AtSignIcon } from '@chakra-ui/icons'
 import {
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Button,
+  Flex,
+  Heading,
   Input,
   InputGroup,
   InputLeftElement,
+  Text,
   useToast,
-  Flex,
 } from '@chakra-ui/react'
-import { ArrowForwardIcon, AtSignIcon } from '@chakra-ui/icons'
+import React, { useContext, useState } from 'react'
+
 import { IdentityContext } from '../../App'
 import { Principal } from '@dfinity/principal'
 import useTokenData from '../../hooks/metadata'
 
-type ModalProps = {
-  disclosure: {
-    isOpen: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-    onToggle: () => void;
-    isControlled: boolean;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getButtonProps: (props?: any) => any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getDisclosureProps: (props?: any) => any;
-  }
-}
-
-const TransferModal = ({ disclosure }: ModalProps): JSX.Element => {
-  const { isOpen, onClose } = disclosure
+const Transfer = (): JSX.Element => {
   const toast = useToast()
   const [ actor ] = useContext(IdentityContext).actor
   const [ principal, setPrincipal ] = useState<string>()
   const [ amount, setAmount ] = useState<string>('0')
   const { decimals, fee, symbol } = useTokenData()
 
-  return <Modal 
-    isOpen={isOpen} 
-    onClose={onClose}
-    isCentered
+  return <Flex 
+    direction="column"
   >
-    <ModalOverlay />
+    <Heading 
+      size="lg"
+      mb="15px"
+    >Transfer funds</Heading>
 
-    <ModalContent>
-      <ModalHeader>Transfer</ModalHeader>
+    <InputGroup>
+      <InputLeftElement
+        pointerEvents='none'
+      >
+        <AtSignIcon />
+      </InputLeftElement>
 
-      <ModalCloseButton />
+      <Input 
+        variant="solid"
+        placeholder='Address' 
+        value={principal}
+        onChange={(e) => {
+          setPrincipal(e.target.value)
+        }}
+      />
+    </InputGroup>
 
-      <ModalBody>
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents='none'
-          >
-            <AtSignIcon />
-          </InputLeftElement>
+    <Flex 
+      mt="10px" 
+      alignItems="center" 
+      justifyContent="space-between"
+      gap="10px"
+    >
+      <Text fontWeight="600">{symbol ? symbol : 'MAE'}</Text>
 
-          <Input 
-            placeholder='Principal ID' 
-            value={principal}
-            onChange={(e) => {
-              setPrincipal(e.target.value)
-            }}
-          />
-        </InputGroup>
+      <Input 
+        variant="solid"
+        placeholder="Amount" 
+        value={amount}
+        onChange={(e) => {
+          setAmount(e.target.value)
+        }}
+      />
 
-        <Flex mt="10px" alignItems="center" justifyContent="space-between">
-          <Input 
-            w="180px"
-            placeholder="Amount" 
-            value={amount}
-            onChange={(e) => {
-              setAmount(e.target.value)
-            }}
-          />
+      <Text 
+        fontWeight="600"
+        whiteSpace="nowrap"
+      > + {fee / 10.0 ** decimals}</Text>
+    </Flex>
 
-          <Text 
-            w="max-content"
-            m="0 10px"
-          > + {fee / 10.0 ** decimals} = </Text>
+    <Text fontSize="0.8em" color="gray.300">The fee applied is a flat rate of {fee / 10.0 ** decimals} {symbol}.</Text>
 
-          <Input 
-            placeholder="Amount" 
-            w="100px"
-            value={Number(amount) + (fee / 10.0 ** decimals)}
-            onChange={(e) => {
-              setAmount(`${Number(e.target.value) - (fee / 10.0 ** decimals)}`)
-            }}
-          />
+    <Button 
+      mt="15px"
+      ml="auto"
+      w="max-content"
+      rightIcon={<ArrowForwardIcon />}
+      onClick={() => {
+        if (!decimals) return
+        if (isNaN(Number(amount))) return
 
-          <Text ml="10px">{symbol}</Text>
-        </Flex>
+        const transfer = async () => {
+          const status = await actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
 
-        <Text fontSize="0.8em" color="gray.300">The fee applied is a flat rate of {fee / 10.0 ** decimals} {symbol}.</Text>
-      </ModalBody>
+          if (status) {
+            toast({
+              title: 'Transaction executed successfully.',
+              status: 'success',
+              isClosable: true
+            })
+          } else {
+            toast({
+              title: 'Error happened in transaction.',
+              status: 'error',
+              isClosable: true
+            })
+          }
+        }
 
-      <ModalFooter>
-        <Button 
-          rightIcon={<ArrowForwardIcon />}
-          onClick={() => {
-            if (!decimals) return
-            if (isNaN(Number(amount))) return
-
-            const transfer = async () => {
-              const status = await actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
-
-              if (status) {
-                toast({
-                  title: 'Transaction executed successfully.',
-                  status: 'success',
-                  isClosable: true
-                })
-              } else {
-                toast({
-                  title: 'Error happened in transaction.',
-                  status: 'error',
-                  isClosable: true
-                })
-              }
-            }
-
-            transfer()
-          }}
-        >Transfer funds</Button>
-      </ModalFooter>
-    </ModalContent>
-  </Modal>
+        transfer()
+      }}
+    >Send</Button>
+  </Flex>
 }
 
-export default TransferModal
+export default Transfer

@@ -1,11 +1,10 @@
-import { AtSignIcon } from '@chakra-ui/icons'
-import { Button } from '@chakra-ui/react'
+import { Button, Text } from '@chakra-ui/react'
 import React, { useContext } from 'react'
-import { NavigationItem } from '.'
+
 import { IdentityContext } from '../../App'
 import { useAuthentication } from '../../hooks/authentication'
 
-const LoginItem = (): JSX.Element => {
+const LoginItem = ({ mobile }: { mobile?: boolean }): JSX.Element => {
   const { logged, login } = useAuthentication()
   const [ identity ] = useContext(IdentityContext).identity
 
@@ -14,13 +13,9 @@ const LoginItem = (): JSX.Element => {
   }
 
   return logged && identity ? 
-    <NavigationItem 
-      name={getFirstChars(identity.getPrincipal().toString())} 
-      left 
-      icon={AtSignIcon}
-    /> 
+    <Text ml="auto">{getFirstChars(identity.getPrincipal().toString())} </Text>
     : 
-    <Button ml="auto" onClick={login}>
+    <Button ml={mobile ? '' : 'auto'} onClick={login}>
       Login
     </Button>
 }

@@ -1,93 +1,88 @@
-import { AddIcon } from '@chakra-ui/icons'
-import { Text, Box, Button, Flex, Heading, chakra, useDisclosure } from '@chakra-ui/react'
-
+import { Code, Flex, Heading, Text, chakra, useToast } from '@chakra-ui/react'
 import React, { useContext, useEffect, useState } from 'react'
+
+import { AtSignIcon } from '@chakra-ui/icons'
 import { IdentityContext } from '../../App'
-import TransferModal from './Transfer'
-import Wallet, { WalletType } from './Wallet'
+import { Principal } from '@dfinity/principal'
+import useTokenData from '../../hooks/metadata'
 
-const Funds = ({ value, sizes }: {
-    value: number,
-    sizes: [string, string]
-}): JSX.Element => {
-  const [ actor ] = useContext(IdentityContext).actor
-  const [ decimals, setDecimals ] = useState<number>()
-
-  useEffect(() => {
-    if (actor) actor.decimals().then(_decimals => setDecimals(_decimals))
-  }, [ actor ])
-
-  return <Heading
-    fontSize={sizes[0]}
-    ml="auto"
-  >
-    {value < 0 || !decimals ? 'N/A' : value / 10 ** decimals} <chakra.span fontSize={sizes[1]} fontWeight="normal">MAE</chakra.span>
-  </Heading>
+export type WalletType = {
+  address: Principal
 }
 
-export const HeroTitle = ({ title, sizes, value }: {
-    title: string,
-    sizes: [string, string],
-    value: number
-}): JSX.Element => (
-  <Flex>
-    <Heading fontSize={sizes[0]}>{title}</Heading>
-    <Funds value={value} sizes={sizes} />
-  </Flex>
-)
+const formatNumber = (val: number): string => {
+  const [strNum, decimals] = val.toString().split('.')
+  const result = []
+  for (let i = 0; i < Math.ceil(strNum.length / 3); i++) {
+    const surplus = strNum.length % 3
+    if (surplus != 0 && i == 0) {
+      result.push(strNum.slice(0, surplus))
+      continue
+    }
 
+    const start = (i-1) * 3 + surplus
+    result.push(strNum.slice(start, start + 3))
+  }
 
-const Wallets = (): JSX.Element => {
-  const [ wallets, setWallets ] = useState<Array<WalletType>>()
-  const [ identity ] = useContext(IdentityContext).identity
-  const disclosure = useDisclosure()
-  const { onOpen } = disclosure
+  return `${result.join('\'')}${decimals? '.' + decimals : ''}`
+}
+
+const Wallet = ({ address }: WalletType): JSX.Element => {
+  const toast = useToast()
+  const [ actor ] = useContext(IdentityContext).actor
+  const [ balance, setBalance ] = useState<number>(-1)
+  const { symbol, name, decimals } = useTokenData()
 
   useEffect(() => {
-    if (!identity) return
+    if (actor && address) {
+      actor.balanceOf(address).then((balance: BigInt) => {
+        setBalance(Number(balance))
+      })
+    }
+  }, [])
 
-    setWallets([
-      {
-        name: 'Main',
-        address: identity.getPrincipal()
-      }
-    ])
-  }, [ identity ])
+  const copy = () => {
+    navigator.clipboard.writeText(address.toString())
+    toast({
+      title: 'Address copied',
+      variant: 'subtle',
+      isClosable: true
+    })
+  }
 
   return <Flex
+    borderRadius="10px"
     w="100%"
-    h="80vh"
-    justifyContent="center"
+    justifyContent="space-between"
+    p="30px"
+    direction="column"
+    flexWrap="wrap"
+    gap="12px"
   >
-    <Flex 
-      direction="column"
-      w="40%"
-      h="100%"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Box m="5% 0" w="100%">
-        <HeroTitle title="Account" value={-1} sizes={['4xl', 'md']} />
-      </Box>
+    <Text
+      textTransform="capitalize"
+      color="gray.500"
+    >{name}</Text>
+    <Heading size="3xl">
+      <chakra.span fontSize="1em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
+    </Heading>
 
-      { wallets ? wallets.map((wallet, i) => (
-        <Wallet key={i} {...wallet} />
-      )) : <Text color="gray.300" fontSize="0.8em">No wallet listed yet.</Text> }
-
-      <Button 
-        w="max-content"
-        leftIcon={<AddIcon />}
-        size="lg" 
-        mt="auto"
-        onClick={() => {
-          if (identity) onOpen()
-        }}
-        disabled={!identity}
-      >New transaction</Button>
+    <Flex alignItems="center">
+      <AtSignIcon /> 
+      <Code>{address.toString()}</Code>
     </Flex>
-
-    <TransferModal disclosure={disclosure} />
+    <Flex direction={{ base: 'column', md: 'row' }}>
+      <Text color="gray.500">voting weight: N/A</Text>
+      <Text 
+        color="gray.500" 
+        ml="auto"
+        cursor="pointer"
+        onClick={copy}
+      >
+        click to copy
+      </Text>
+    </Flex>
   </Flex>
 }
 
-export default Wallets
+export default Wallet

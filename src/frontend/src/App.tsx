@@ -1,16 +1,18 @@
-import React, { useState, createContext, Dispatch, SetStateAction } from 'react'
+import { ActorSubclass, Identity } from '@dfinity/agent'
+import { Fonts, theme } from './theme'
+import React, { Dispatch, SetStateAction, createContext, useEffect, useState } from 'react'
+
 import {
   ChakraProvider,
 } from '@chakra-ui/react'
-import NavigationBar from './components/navigation'
-import { theme, Fonts } from './theme'
-import Wallets from './components/wallets'
-import { Identity, ActorSubclass } from '@dfinity/agent'
+import Container from './components/Container'
+import PageLoader from './components/PageLoader'
 import { _SERVICE } from '../../declarations/contract/contract.did'
 
+type State<T> = [T | undefined, Dispatch<SetStateAction<T | undefined>>]
 type Context = {
-  identity: [Identity | undefined, Dispatch<SetStateAction<Identity | undefined>>] | undefined,
-  actor: [ActorSubclass<_SERVICE> | undefined, Dispatch<SetStateAction<ActorSubclass<_SERVICE> | undefined>>] | undefined
+  identity: State<Identity> | undefined,
+  actor: State<ActorSubclass<_SERVICE>> | undefined
 }
 export const IdentityContext = createContext<Context>({
   identity: undefined,
@@ -20,6 +22,14 @@ export const IdentityContext = createContext<Context>({
 export const App = () => {
   const identityState = useState<Identity>()
   const actorState = useState<ActorSubclass<_SERVICE>>()
+  const [ isLoading, setLoadingState ] = useState(true)
+
+  useEffect(() => {
+    // Show the loader for a minimum amount of time
+    setTimeout(() => {
+      setLoadingState(false)
+    }, 2000)
+  }, [])
 
   return <ChakraProvider resetCSS theme={theme}>
     <Fonts />
@@ -27,8 +37,9 @@ export const App = () => {
       identity: identityState,
       actor: actorState
     }}>
-      <NavigationBar />
-      <Wallets />
+      { isLoading ? <PageLoader /> : null }
+
+      <Container />
     </IdentityContext.Provider>
   </ChakraProvider>
 }

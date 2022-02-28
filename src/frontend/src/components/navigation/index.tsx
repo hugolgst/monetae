@@ -1,42 +1,42 @@
-import { ComponentWithAs, Flex, IconProps, Image, Text } from '@chakra-ui/react'
+import { Flex, Image } from '@chakra-ui/react'
 
-import React from 'react'
 import LoginItem from './Login'
+import React from 'react'
 
-
-
-interface ItemProps {
-  name: string
-  active?: boolean
-  left?: boolean
-  onClick?: () => void
-  icon?: ComponentWithAs<'svg', IconProps>
-}
-
-export const NavigationItem = ({ name, active, left, onClick, icon: Icon }: ItemProps): JSX.Element => (
-  <Text
-    color={active ? 'brand.600' : 'gray'}
-    fontSize="1.2em"
-    fontWeight="bold"
-    m="20px"
-    p="10px"
-    w="170px"
-    textAlign="center"
-    borderRadius="50px"
-    cursor="pointer"
-    ml={left ? 'auto' : ''}
-    onClick={onClick}
-  >{Icon ? <Icon /> : null} {name}</Text>	
-)
-
-const NavigationBar = (): JSX.Element => {
-  return <Flex 
-    w="100%"
+export const MobileNavigationBar = (): JSX.Element => (
+  <Flex 
     justifyContent="center"
-    h="120px"
+    display={{ base: 'flex', md: 'none' }}
+    w="100%"
+    borderBottom="1px dashed #D0D0D0"
+    mb="30px"
   >
     <Flex
-      w="80%"
+      w="100%"
+      m="20px"
+      boxSizing="border-box"
+    >
+      <Image 
+        src="images/monetae-logo.svg"
+        w="140px"
+      />
+
+      <LoginItem />
+    </Flex>
+  </Flex>
+)
+
+export const NavigationBar = (): JSX.Element => {
+  return <Flex 
+    display={{ base: 'none' , md: 'flex' }}
+    w="100%"
+    justifyContent="center"
+    h="100px"
+    borderBottom="1px dashed #D0D0D0"
+    mb="30px"
+  >
+    <Flex
+      w="100%"
       direction="row"
       alignItems="center"
     >
@@ -44,11 +44,8 @@ const NavigationBar = (): JSX.Element => {
         src="images/monetae-logo.svg"
         w="180px"
       />
-      <NavigationItem name="Wallet" active />
-      <NavigationItem name="Governance" />
+
       <LoginItem />
     </Flex>
   </Flex>
 }
-
-export default NavigationBar
