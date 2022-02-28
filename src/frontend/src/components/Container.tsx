@@ -31,12 +31,16 @@ const Container = (): JSX.Element => {
         <NavigationBar />
         <MobileNavigationBar />
 
-        <Flex w="100%">
-          <Box w="70%">
+        <Flex 
+          w="100%"
+          direction={{ base: 'column', md: 'row' }}
+          alignItems="center"
+        >
+          <Box w={{ base: '95%', md: '70%' }}>
             { identity ? <Wallet address={identity.getPrincipal()} /> : null }
           </Box>
 
-          <Box w="30%">
+          <Box w={{ base: '95%', md: '30%' }}>
             <Transfer />
           </Box>
         </Flex>
