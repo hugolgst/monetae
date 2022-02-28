@@ -30,6 +30,19 @@ const Button: ComponentStyleConfig = {
   },
 }
 
+const Input: ComponentStyleConfig = {
+  variants: {
+    solid: {
+      field: {
+        bgColor: '#EEEEEE',
+        border: 'none',
+        borderRadius: '50px',
+        color: '#686868' 
+      }
+    }
+  }
+}
+
 export const Fonts = () => (
   <Global
     styles={`
@@ -69,10 +82,11 @@ export const theme = extendTheme({
   },
   fonts: {
     heading: 'moranga',
-    body: 'Inter',
+    body: 'Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
   },
   components: {
-    Button
+    Button,
+    Input
   },
   styles: {
     global: (props) => ({

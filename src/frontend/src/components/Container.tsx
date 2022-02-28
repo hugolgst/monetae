@@ -1,11 +1,15 @@
+import { Box, Flex } from '@chakra-ui/react'
 import { MobileNavigationBar, NavigationBar } from './navigation'
+import React, { useContext } from 'react'
 
-import { Flex } from '@chakra-ui/react'
+import { IdentityContext } from '../App'
 import InformationBar from './information'
-import React from 'react'
-import Wallets from './wallets'
+import Transfer from './wallets/Transfer'
+import Wallet from './wallets'
 
 const Container = (): JSX.Element => {
+  const [identity] = useContext(IdentityContext).identity
+
   return <Flex 
     w="100vw"
     direction="column"
@@ -27,7 +31,15 @@ const Container = (): JSX.Element => {
         <NavigationBar />
         <MobileNavigationBar />
 
-        <Wallets />
+        <Flex w="100%">
+          <Box w="70%">
+            { identity ? <Wallet address={identity.getPrincipal()} /> : null }
+          </Box>
+
+          <Box w="30%">
+            <Transfer />
+          </Box>
+        </Flex>
       </Flex>
     </Flex>
   </Flex>

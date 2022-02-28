@@ -8,6 +8,7 @@ export const MobileNavigationBar = (): JSX.Element => (
     justifyContent="center"
     display={{ base: 'flex', md: 'none' }}
     w="100%"
+    borderBottom="1px dashed #D0D0D0"
   >
     <Flex
       w="100%"
@@ -29,7 +30,9 @@ export const NavigationBar = (): JSX.Element => {
     display={{ base: 'none' , md: 'flex' }}
     w="100%"
     justifyContent="center"
-    h="120px"
+    h="100px"
+    borderBottom="1px dashed #D0D0D0"
+    mb="30px"
   >
     <Flex
       w="100%"
