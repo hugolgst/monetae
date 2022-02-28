@@ -23,6 +23,8 @@ const Transfer = (): JSX.Element => {
   const { decimals, fee, symbol } = useTokenData()
 
   return <Flex 
+    w="100%"
+    p="30px"
     direction="column"
   >
     <Heading 
