@@ -39,7 +39,7 @@ const Wallet = ({ address }: WalletType): JSX.Element => {
         setBalance(Number(balance))
       })
     }
-  }, [])
+  }, [ actor ])
 
   const copy = () => {
     navigator.clipboard.writeText(address.toString())
