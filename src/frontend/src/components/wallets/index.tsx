@@ -39,7 +39,7 @@ const Wallet = ({ address }: WalletType): JSX.Element => {
         setBalance(Number(balance))
       })
     }
-  }, [])
+  }, [ actor ])
 
   const copy = () => {
     navigator.clipboard.writeText(address.toString())
@@ -64,7 +64,7 @@ const Wallet = ({ address }: WalletType): JSX.Element => {
       color="gray.500"
     >{name}</Text>
     <Heading size="3xl">
-      <chakra.span fontSize="1em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
+      <chakra.span fontSize="0.6em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
     </Heading>
 
     <Flex alignItems="center">

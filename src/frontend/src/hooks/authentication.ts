@@ -1,8 +1,9 @@
-import { AuthClient } from '@dfinity/auth-client'
+import { contractID, identityProvider } from '..'
 import { useContext, useState } from 'react'
+
+import { AuthClient } from '@dfinity/auth-client'
 import { IdentityContext } from '../App'
 import { createActor } from '../../../declarations/contract'
-import { contractID } from '..'
 
 export const useAuthentication = () => {
   const [ logged, setLogged ] = useState(false)
@@ -30,7 +31,7 @@ export const useAuthentication = () => {
           },
         }))
       },
-      identityProvider: 'https://identity.ic0.app/#authorize',
+      identityProvider: identityProvider,
       maxTimeToLive: days * hours * nanoseconds,
     })
   }
