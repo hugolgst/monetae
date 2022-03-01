@@ -7,20 +7,24 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
-  useToast,
+  useDisclosure,
 } from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
-import { IdentityContext } from '../../App'
-import { Principal } from '@dfinity/principal'
+import Alert from './Alert'
 import { useTokenData } from '../../hooks/metadata'
 
 const Transfer = (): JSX.Element => {
-  const toast = useToast()
-  const [ actor ] = useContext(IdentityContext).actor
   const [ principal, setPrincipal ] = useState<string>()
   const [ amount, setAmount ] = useState<string>('0')
   const { decimals, fee, symbol } = useTokenData()
+  const alertDisclosure = useDisclosure()
+  const { onOpen } = alertDisclosure
+
+  const resetFields = () => {
+    setAmount(undefined)
+    setPrincipal(undefined)
+  }
 
   return <Flex 
     w="100%"
@@ -79,31 +83,15 @@ const Transfer = (): JSX.Element => {
       ml="auto"
       w="max-content"
       rightIcon={<ArrowForwardIcon />}
-      onClick={() => {
-        if (!decimals) return
-        if (isNaN(Number(amount))) return
-
-        const transfer = async () => {
-          const status = await actor.transfer(Principal.fromText(principal), BigInt(Number(amount) * 10**decimals))
-
-          if (status) {
-            toast({
-              title: 'Transaction executed successfully.',
-              status: 'success',
-              isClosable: true
-            })
-          } else {
-            toast({
-              title: 'Error happened in transaction.',
-              status: 'error',
-              isClosable: true
-            })
-          }
-        }
-
-        transfer()
-      }}
+      onClick={onOpen}
     >Send</Button>
+
+    <Alert 
+      amount={Number(amount)}
+      address={principal}
+      disclosure={alertDisclosure}
+      resetFields={resetFields}
+    />
   </Flex>
 }
 
