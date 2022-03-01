@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, toast, useToast } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useToast } from '@chakra-ui/react'
 import { IdentityContext, queryClient } from '../../App'
 import React, { useContext, useRef } from 'react'
 
@@ -15,7 +15,9 @@ interface AlertProps {
     onClose: () => void;
     onToggle: () => void;
     isControlled: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getButtonProps: (props?: any) => any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getDisclosureProps: (props?: any) => any;
   }
 }

@@ -1,6 +1,6 @@
 import { ActorSubclass, Identity } from '@dfinity/agent'
 import { Fonts, theme } from './theme'
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import React, { Dispatch, SetStateAction, createContext, useEffect, useState } from 'react'
 
 import {
