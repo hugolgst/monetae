@@ -13,7 +13,7 @@ import React, { useContext, useState } from 'react'
 
 import { IdentityContext } from '../../App'
 import { Principal } from '@dfinity/principal'
-import useTokenData from '../../hooks/metadata'
+import { useTokenData } from '../../hooks/metadata'
 
 const Transfer = (): JSX.Element => {
   const toast = useToast()

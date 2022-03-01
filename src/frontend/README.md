@@ -43,6 +43,3 @@ src/frontend/
 		Folder containing built static files with index.html as an entry file.
 
 ```
-
-## Local development
-### Internet Identity

@@ -1,45 +1,39 @@
-import { Code, Flex, Heading, Text, chakra, useToast } from '@chakra-ui/react'
-import React, { useContext, useEffect, useState } from 'react'
+import { Code, Flex, Heading, Skeleton, Text, chakra, useToast } from '@chakra-ui/react'
+import { useBalance, useTokenData } from '../../hooks/metadata'
 
 import { AtSignIcon } from '@chakra-ui/icons'
-import { IdentityContext } from '../../App'
 import { Principal } from '@dfinity/principal'
-import useTokenData from '../../hooks/metadata'
+import React from 'react'
 
 export type WalletType = {
   address: Principal
 }
 
 const formatNumber = (val: number): string => {
-  const [strNum, decimals] = val.toString().split('.')
-  const result = []
-  for (let i = 0; i < Math.ceil(strNum.length / 3); i++) {
-    const surplus = strNum.length % 3
-    if (surplus != 0 && i == 0) {
-      result.push(strNum.slice(0, surplus))
-      continue
-    }
+  const [number, decimals] = val.toString().split('.')
+  let result = []
 
-    const start = (i-1) * 3 + surplus
-    result.push(strNum.slice(start, start + 3))
+  for (let _i = 0; _i < number.length; _i += 3) {
+    const i = number.length - _i
+
+    const chunk = number.slice(i - 3, i)
+    result.unshift(chunk)
   }
 
-  return `${result.join('\'')}${decimals? '.' + decimals : ''}`
+  const surplus = number.length % 3
+  if (surplus != 0) {
+    result.unshift(number.slice(0, surplus))
+  }
+
+  result = result.filter(item => item !== '')
+  
+  return `${result.join('\'')}.${decimals ? decimals : '-'}`
 }
 
 const Wallet = ({ address }: WalletType): JSX.Element => {
   const toast = useToast()
-  const [ actor ] = useContext(IdentityContext).actor
-  const [ balance, setBalance ] = useState<number>(-1)
+  const { loading, balance } = useBalance()
   const { symbol, name, decimals } = useTokenData()
-
-  useEffect(() => {
-    if (actor && address) {
-      actor.balanceOf(address).then((balance: BigInt) => {
-        setBalance(Number(balance))
-      })
-    }
-  }, [ actor ])
 
   const copy = () => {
     navigator.clipboard.writeText(address.toString())
@@ -63,9 +57,11 @@ const Wallet = ({ address }: WalletType): JSX.Element => {
       textTransform="capitalize"
       color="gray.500"
     >{name}</Text>
-    <Heading size="3xl">
-      <chakra.span fontSize="0.6em">{symbol}</chakra.span> {formatNumber(balance / 10**decimals)}
-    </Heading>
+    <Skeleton isLoaded={!loading}>
+      <Heading size="3xl">
+        <chakra.span fontSize="0.6em">{symbol}</chakra.span> {formatNumber(balance / 10 ** decimals)}
+      </Heading>
+    </Skeleton>
 
     <Flex alignItems="center">
       <AtSignIcon /> 
