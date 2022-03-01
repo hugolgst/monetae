@@ -32,7 +32,7 @@ if [ "$1" = "contract" -o $# -eq 0 ]; then
   dfx build contract
 
   if [ "$DEPLOY" = "true" ]; then
-    dfx deploy contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\", 50000000000:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\")" --network=ic --no-wallet
+    dfx canister install contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\", 50000000000:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\")" --mode="upgrade" --network=ic --no-wallet
   fi
 
   echo "\nModule hash:"
