@@ -3,12 +3,12 @@
 set -e
 
 if [ "$DEPLOY" = "true" ]; then
-	mkdir ~/.config/dfx
-	mkdir ~/.config/dfx/identity
-	mkdir ~/.config/dfx/identity/default
+  mkdir ~/.config/dfx
+  mkdir ~/.config/dfx/identity
+  mkdir ~/.config/dfx/identity/default
 
-	echo $INPUT_IDENTITY > ~/.config/dfx/identity/default/identity.pem
-	sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
+  echo $INPUT_IDENTITY > ~/.config/dfx/identity/default/identity.pem
+  sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
 fi
 
 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
@@ -32,7 +32,7 @@ if [ "$1" = "contract" -o $# -eq 0 ]; then
   dfx build contract
 
   if [ "$DEPLOY" = "true" ]; then
-    dfx canister install contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\", 50000000000:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\")" --mode="upgrade" --network=ic --no-wallet
+    dfx canister install --network=ic contract --argument="(\"Monetae\", \"MAE\", 2:nat8, 1:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\", 50000000000:nat, principal \"juopm-suhx3-bvllk-qcgox-ns3mz-c2u4l-jn6p2-22h7o-tpciq-ja2te-gqe\")" --mode="upgrade"
   fi
 
   echo "\nModule hash:"
