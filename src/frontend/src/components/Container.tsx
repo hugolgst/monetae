@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 
 import { IdentityContext } from '../App'
 import InformationBar from './information'
-import Transfer from './wallets/Transfer'
+import Transfer from './transfer'
 import Wallet from './wallets'
 
 const Container = (): JSX.Element => {
@@ -41,7 +41,7 @@ const Container = (): JSX.Element => {
           </Box>
 
           <Box w={{ base: '95%', md: '30%' }}>
-            <Transfer />
+            { identity ? <Transfer /> : null }
           </Box>
         </Flex>
       </Flex>

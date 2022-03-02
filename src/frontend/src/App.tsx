@@ -1,5 +1,6 @@
 import { ActorSubclass, Identity } from '@dfinity/agent'
 import { Fonts, theme } from './theme'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import React, { Dispatch, SetStateAction, createContext, useEffect, useState } from 'react'
 
 import {
@@ -19,6 +20,8 @@ export const IdentityContext = createContext<Context>({
   actor: undefined
 })
 
+export const queryClient = new QueryClient()
+
 export const App = () => {
   const identityState = useState<Identity>()
   const actorState = useState<ActorSubclass<_SERVICE>>()
@@ -37,9 +40,11 @@ export const App = () => {
       identity: identityState,
       actor: actorState
     }}>
-      { isLoading ? <PageLoader /> : null }
+      <QueryClientProvider client={queryClient}>
+        { isLoading ? <PageLoader /> : null }
 
-      <Container />
+        <Container />
+      </QueryClientProvider>
     </IdentityContext.Provider>
   </ChakraProvider>
 }
