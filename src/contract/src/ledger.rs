@@ -34,10 +34,10 @@ pub fn ledger(limit: u64, _offset: u64) -> Ledger {
     let vec = ic::get::<Ledger>().to_vec();
     let offset = vec.len() - (_offset as usize);
 
-    return (&vec[offset..(offset + limit as usize)]).to_vec()
+    (&vec[offset..(offset + limit as usize)]).to_vec()
 }
 
 #[query(name = "ledgerSize")]
 pub fn ledger_size() -> u64 {
-    return ic::get::<Ledger>().len() as u64
+    return ic::get::<Ledger>().len() as u64;
 }
