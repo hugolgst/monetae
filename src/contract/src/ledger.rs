@@ -32,7 +32,11 @@ pub fn append_record(
 #[query]
 pub fn ledger(limit: u64, _offset: u64) -> Ledger {
     let vec = ic::get::<Ledger>().to_vec();
-    let offset = vec.len() - (_offset as usize);
+    let offset = vec.len() - 1 - (_offset as usize);
+
+    if _offset + limit > vec.len() as u64 {
+        return Vec::new();
+    }
 
     (&vec[offset..(offset + limit as usize)]).to_vec()
 }
