@@ -28,5 +28,6 @@ service : (
     "transferFrom": (principal, principal, nat) -> (bool);
 		"approve": (principal, nat) -> (bool);
 		"allowance": (principal, principal) -> (nat) query;
-    "ledger": () -> (vec Record) query;
+    "ledger": (nat64, nat64) -> (vec Record) query;
+		"ledgerSize": () -> (nat) query;
 }
